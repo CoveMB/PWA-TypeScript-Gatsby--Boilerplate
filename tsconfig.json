@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "jsx": "preserve",
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "./src/*"
+      ],
+      "shared/*": [
+        "./src/components/shared/*"
+      ],
+      "sw/*": [
+        "./src/service-worker/*"
+      ],
+    },
+    "typeRoots": [
+      "./src/types",
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./public",
+    "./.cache"
+  ]
+}
