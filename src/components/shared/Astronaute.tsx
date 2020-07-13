@@ -1,6 +1,6 @@
-import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
+import React, { FC } from 'react';
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -13,7 +13,7 @@ import Img from 'gatsby-image';
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Astronaute = () => {
+const Astronaute: FC = () => {
 
   const data = useStaticQuery(graphql`
     query {

@@ -1,6 +1,6 @@
 import { AuthContext } from 'contexts/auth';
 import { Link } from 'gatsby';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'styles/links';
 
@@ -9,7 +9,7 @@ const Div = styled.div`
 `;
 
 // The navbar shown if you are logged in
-const LoggedIn = () => {
+const LoggedIn: FC = () => {
 
   const { logOut, authToken } = useContext(AuthContext);
   const { token } = authToken;

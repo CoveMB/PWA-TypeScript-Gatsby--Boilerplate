@@ -3,23 +3,23 @@
 type AuthContextState = {
   user: User,
   isAuthenticated: boolean,
-  authToken: Token,
+  authToken: AuthToken,
 };
 
 // Functions
-type Login = ({ user, token }: {user: User, token: Token}) => void;
+type Login = ({ user, token }: {user: User, token: AuthToken}) => void;
 
-type SetToken = ({ user, token }: {user: User, token: Token}) => void;
+type SetToken = ({ user, token }: {user: User, token: AuthToken}) => void;
 
 type UnsetToken = () => void;
 
 type LogOut = (
   { tokenToRevoke, logOutUser, authToken }:
-  { tokenToRevoke?: Token.token, logOutUser?: boolean, authToken?: Token.token }
+  { tokenToRevoke?: string, logOutUser?: boolean, authToken?: string }
 ) => Promise<void>;
 
-// Context
-interface AuthContext extends AuthContextState {
+// AuthContext
+type AuthContext = AuthContextState & {
   logIn: Login
   logOut: LogOut
-}
+};

@@ -1,14 +1,14 @@
 import SEO from 'components/layout/Seo';
 import useHttp from 'hooks/http';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useStore } from 'store/useStore';
 import { PageTitle } from 'styles/texts';
 import TokenList from './TokensList/TokenList';
 
-const Profile = () => {
+const Profile: FC = () => {
 
-  const [ { user, userData }, dispatch ] = useStore();
-  const { httpData, sendRequest } = useHttp();
+  const [ { user }, dispatch ] = useStore();
+  const { sendRequest } = useHttp();
 
   useEffect(() => {
 
@@ -17,7 +17,7 @@ const Profile = () => {
       if (user.email) {
 
         // Query the user
-        const query = `
+        const query = /* GraphQL */`
           query {
             user(uuid: "${user.uuid}"){
               tokens(orderBy: id) {
@@ -27,7 +27,7 @@ const Profile = () => {
             }
           }`;
 
-        const { data } = await sendRequest({
+        const { data } = await sendRequest<{data: {user: UserData}}>({
           url: '/graphql', method: 'POST', body: { query }
         });
 

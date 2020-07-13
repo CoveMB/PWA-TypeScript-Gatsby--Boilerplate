@@ -39,25 +39,16 @@ type FormData = {
   password?: string
 };
 
-type PossibleAuthActions = 'login' | 'signup' | 'passwordReset';
-
-type AuthActions = {
-  LOGIN: 'login',
-  SIGNUP: 'signup',
-  PASSWORD_RESET: 'passwordReset'
-};
-
 type Props = {
-  authModalOpen: boolean,
   setAuthAction: (
-    { authModalOpen, authAction }: {authModalOpen: boolean, authAction?: PossibleAuthActions}
+    { authModalOpen, authAction }: UserAuthAction
   ) => void,
   actions: AuthActions,
-  authAction: string
+  userAuthAction: UserAuthAction
 };
 
 const SignUpModal: FC<Props> = ({
-  authModalOpen, setAuthAction, authAction = '', actions
+  setAuthAction, userAuthAction, actions
 }) => {
 
   const { register, handleSubmit, errors } = useForm<FormData>();
@@ -66,6 +57,7 @@ const SignUpModal: FC<Props> = ({
   } = useHttp();
   const [ successFeedBack, setSuccessFeedBack ] = useState('');
   const { logIn } = useContext(AuthContext);
+  const { authModalOpen, authAction } = userAuthAction;
   const { SIGNUP, LOGIN, PASSWORD_RESET } = actions;
 
   const closeAuthModal = () => {

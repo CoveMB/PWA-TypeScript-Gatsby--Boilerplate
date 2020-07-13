@@ -1,12 +1,17 @@
-import React from 'react';
-import { button } from 'styles/button';
+import React, { FC } from 'react';
 import styled from 'styled-components';
+import { button } from 'styles/button';
 
 const StyledButton = styled.div`
   ${button}
 `;
 
-const Button = ({ text, type }) => (
+type Props = {
+  text: string,
+  type: string
+};
+
+const Button: FC<Props> = ({ text, type }) => (
   <>
     <StyledButton type={type}>{text}</StyledButton>
   </>

@@ -1,10 +1,8 @@
+import { AxiosResponse } from 'axios';
 import axios from 'config/axios-instance';
 import { AuthContext } from 'contexts/auth';
-import {
-  useCallback, useContext, useEffect, useReducer
-} from 'react';
-import { UseHttp, ExecuteRequest, HttpReducer, HttpRequestParams } from 'types';
-import { AxiosResponse } from 'axios';
+import { Reducer, useCallback, useContext, useEffect, useReducer } from 'react';
+import { ExecuteRequest, HttpAction, HttpRequestParams, HttpState, UseHttp } from 'types';
 
 // Initial state for Component using the http hook
 const initialState = {
@@ -14,9 +12,9 @@ const initialState = {
 };
 
 // Reducer defining actions
-const httpReducer: HttpReducer = (curHttpState, action) => {
+const httpReducer: Reducer<HttpState, HttpAction> = (curHttpState, { type, errorMessage, responseData }) => {
 
-  switch (action.type) {
+  switch (type) {
 
     // The request is starting
     case 'SEND':
@@ -32,7 +30,7 @@ const httpReducer: HttpReducer = (curHttpState, action) => {
       return {
         ...curHttpState,
         loading: false,
-        data   : action.responseData
+        data   : responseData,
       };
 
     // An error occurred
@@ -40,7 +38,7 @@ const httpReducer: HttpReducer = (curHttpState, action) => {
       return {
         ...curHttpState,
         loading: false,
-        error  : action.errorMessage
+        error  : errorMessage
       };
 
     // Clear the state

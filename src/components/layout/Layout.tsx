@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 type Props = {
-  header?: string
+  header: string
   children: JSX.Element[] | JSX.Element
 };
 

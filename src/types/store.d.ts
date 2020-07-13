@@ -1,17 +1,13 @@
-import { Dispatch } from 'react';
+type Action<M> = (globalState: PartialState, payload: M) => PartialState;
 
-type Action = (globalState: State, payload: M) => State;
-type Actions<M> = Record<string, Action >;
+type Actions<M> = Record<string, Action<M> >;
 
 type Listener = Dispatch[];
 
-type State = {
-  user?: User
-  userData? : UserData
-};
+type StoreDispatch = (actionIdentifier: string, payload: PossibleStores) => void;
 
-type UseStore = (shouldListen = true) => [State, Dispatch];
+type UseStore = (shouldListen = true) => [State, StoreDispatch];
 
-type InitStore = (storeActions: Actions, initialSate: State) => void;
+type InitStore = (storeActions: Actions, initialSate: PartialState) => void;
 
 type ConfigStore = () => void;

@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { mainColor } from 'styles/colors';
 
 const cubeGridScaleDelay = keyframes`
   0%, 70%, 100% {
     transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
   } 35% {
     transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
   }
 `;
 
@@ -71,8 +71,7 @@ const CubeNine = styled.div`
   animation-delay: 0.2s;
 `;
 
-
-const Loading = () => (
+const Loading: FC = () => (
   <CubeGrid>
     <CubeOne />
     <CubeTwo />

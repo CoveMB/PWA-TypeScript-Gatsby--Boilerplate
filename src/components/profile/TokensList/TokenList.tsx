@@ -1,7 +1,6 @@
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
-import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import { useStore } from 'store/useStore';
 import styled from 'styled-components';
 import { button } from 'styles/button';
@@ -42,19 +41,13 @@ justify-content: space-around;
 align-items: center
 `;
 
-const TokenList = () => {
+const TokenList: FC = () => {
 
   const { logOut, authToken } = useContext(AuthContext);
   const { sendRequest } = useHttp();
   const [ { userData }, dispatch ] = useStore();
 
-  useEffect(() => {
-
-    console.log(userData);
-
-  }, [ userData ]);
-
-  const revokeToken = (tokenToRevoke, registeredAuthToken) => {
+  const revokeToken = (tokenToRevoke: string, registeredAuthToken: string) => {
 
     logOut({
       tokenToRevoke,
@@ -93,14 +86,6 @@ const TokenList = () => {
     </TokenListDiv>
   );
 
-};
-
-TokenList.propTypes = {
-  tokens: PropTypes.arrayOf(PropTypes.object),
-};
-
-TokenList.defaultProps = {
-  tokens: [],
 };
 
 export default TokenList;

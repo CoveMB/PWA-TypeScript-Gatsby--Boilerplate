@@ -1,8 +1,24 @@
 import { AxiosResponse } from 'axios';
 
-type HttpMethods = 'GET' | 'POST' | 'PATCH';
-
 type AxiosInstanceTypes = 'internalInstance' | 'externalInstance';
+
+// Http Hook Reducer
+type HttpState = {
+  loading: boolean,
+  error?: string,
+  data?: any
+};
+
+type HttpActionType = 'CLEAR' | 'ERROR' | 'RESPONSE'| 'SEND';
+
+type HttpAction = {
+  type: HttpActionType,
+  errorMessage?: string,
+  responseData?: any
+};
+
+// Http options
+type HttpMethods = 'GET' | 'POST' | 'PATCH';
 
 type HttpHeaders = {
   'Content-Type'?: 'application/json',
@@ -16,23 +32,8 @@ type HttpRequestParams = {
   headers?: HttpHeaders
 };
 
-type HttpState<M> = {
-  loading: boolean,
-  error?: string,
-  data?: M
-};
-
-type HttpActionType = 'CLEAR' | 'ERROR' | 'RESPONSE'| 'SEND';
-
+// Http Hook Functions
 type ClearHttpState = () => void;
-
-type HttpReducer = (
-  curHttpState: HttpState,
-  action: {
-    type: HttpActionType,
-    errorMessage?: string,
-    responseData?: any
-  }) => HttpState;
 
 type ExecuteRequest = <M>(
   {
@@ -47,12 +48,13 @@ type SendRequest = <M>(
   external?: boolean
 ) => Promise<AxiosResponse<M>>;
 
+// Http Hook
 type UseHttp = <M>(
   initialRequest?: HttpRequestParams
 ) => {
   isLoading: boolean,
   httpData: M,
-  httpError: string,
+  httpError?: string,
   sendRequest: SendRequest,
   clearHttpState: ClearHttpState
 };

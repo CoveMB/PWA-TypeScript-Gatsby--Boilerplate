@@ -3,11 +3,11 @@ import LoggedOut from 'components/layout/navBar/NavLoggedOut';
 import { AuthContext } from 'contexts/auth';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { mainColor } from 'styles/colors';
 import { bodyFont } from 'styles/fonts';
+import { ImageQuerySharp } from 'types';
 
 const Header = styled.header`
   height: 50px;
@@ -42,11 +42,15 @@ const Icon = styled.div`
   animation: ${spin} 26s linear infinite;
 `;
 
-const NavBar = ({ siteTitle }) => {
+type Props = {
+  siteTitle: string
+};
+
+const NavBar: FC<Props> = ({ siteTitle }) => {
 
   const { isAuthenticated } = useContext(AuthContext);
 
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<ImageQuerySharp>(graphql`
   query {
     placeholderImage: file(relativePath: { eq: "gatsby-icon.png" }) {
       childImageSharp {
@@ -82,14 +86,6 @@ const NavBar = ({ siteTitle }) => {
     </Header>
   );
 
-};
-
-NavBar.propTypes = {
-  siteTitle: PropTypes.string,
-};
-
-NavBar.defaultProps = {
-  siteTitle: '',
 };
 
 export default NavBar;

@@ -8,9 +8,7 @@ import React, { FC, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { card } from 'styles/cards';
-import {
-  ErrorFeedBack, Form, InputButton, Label
-} from 'styles/form';
+import { ErrorFeedBack, Form, InputButton, Label } from 'styles/form';
 import { PageTitle } from 'styles/texts';
 
 const Card = styled.div`

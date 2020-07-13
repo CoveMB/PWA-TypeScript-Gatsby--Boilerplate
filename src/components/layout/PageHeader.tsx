@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import styled from 'styled-components';
-import { headerFont } from 'styles/fonts';
 import { mainColor } from 'styles/colors';
+import { headerFont } from 'styles/fonts';
 
 const Header = styled.p`
   margin-top: 15px;
@@ -20,18 +19,14 @@ const Div = styled.div`
   margin: auto
 `;
 
-const PageHeader = ({ text }) => (
+type Props = {
+  text: string
+};
+
+const PageHeader: FC<Props> = ({ text = '' }) => (
   <Div>
     <Header>{text}</Header>
   </Div>
 );
-
-PageHeader.propTypes = {
-  text: PropTypes.string,
-};
-
-PageHeader.defaultProps = {
-  text: '',
-};
 
 export default PageHeader;
