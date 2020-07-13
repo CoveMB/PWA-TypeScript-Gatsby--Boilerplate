@@ -1,4 +1,3 @@
-import { Actions, ConfigStore, User } from 'types';
 import { initStore } from './useStore';
 
 // Configure here actions for user store
