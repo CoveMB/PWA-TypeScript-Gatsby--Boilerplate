@@ -1,7 +1,7 @@
 import PropTypes, { InferProps } from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { button } from 'styles/button';
+import { button } from 'styles';
 
 const StyledButton = styled.div`
   ${button}

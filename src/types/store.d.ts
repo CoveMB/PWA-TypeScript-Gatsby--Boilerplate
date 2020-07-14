@@ -4,7 +4,7 @@ type Actions<M> = Record<string, Action<M> >;
 
 type Listener = Dispatch[];
 
-type StoreDispatch = (actionIdentifier: string, payload: PossibleStores) => void;
+type StoreDispatch = (actionIdentifier: PossibleActions, payload: PossibleStores) => void;
 
 type UseStore = (shouldListen = true) => [State, StoreDispatch];
 

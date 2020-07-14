@@ -1,17 +1,11 @@
 /* eslint-disable react/require-default-props */
 import { AuthContext } from 'contexts/auth';
 import { navigate } from 'gatsby';
-import PropTypes, { Validator } from 'prop-types';
-import React, { ElementType, FC, useContext } from 'react';
-
-type Props = {
-  component: ElementType,
-  location: Location,
-  path: string
-};
+import PropTypes, { InferProps, Validator } from 'prop-types';
+import React, { ElementType, useContext } from 'react';
 
 // The private route will be protected under authentication
-const PrivateRoute: FC<Props> = ({ component: Component, location, ...rest }) => {
+export default function PrivateRoute({ component: Component, location, ...rest }: InferProps<typeof PrivateRoute.propTypes>) {
 
   // Get if the user is authenticated from auth context
   const { isAuthenticated } = useContext(AuthContext);
@@ -30,13 +24,16 @@ const PrivateRoute: FC<Props> = ({ component: Component, location, ...rest }) =>
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <Component {...rest} />;
 
-};
+}
 
 PrivateRoute.propTypes = {
+  path    : PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string
   }) as Validator<Location>,
   component: PropTypes.elementType.isRequired as Validator<ElementType>
 };
 
-export default PrivateRoute;
+PrivateRoute.defaultProps = {
+  location: {},
+};

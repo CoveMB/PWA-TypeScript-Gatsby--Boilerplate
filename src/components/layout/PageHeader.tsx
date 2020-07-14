@@ -1,8 +1,7 @@
 import PropTypes, { InferProps } from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { mainColor } from 'styles/colors';
-import { headerFont } from 'styles/fonts';
+import { headerFont, mainColor } from 'styles';
 
 const Header = styled.p`
   margin-top: 15px;
@@ -20,7 +19,7 @@ const Div = styled.div`
   margin: auto
 `;
 
-export default function PageHeader({ text }: InferProps<typeof PageHeader.propTypes>) {
+export default function PageHeader({ text = '' }: InferProps<typeof PageHeader.propTypes>) {
 
   return (
     <Div>

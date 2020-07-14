@@ -6,22 +6,22 @@
  */
 
 import { graphql, useStaticQuery } from 'gatsby';
-import PropTypes, { InferProps } from 'prop-types';
+import PropTypes, { InferProps, Validator } from 'prop-types';
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProps } from 'react-helmet';
+import { SiteData } from 'types';
 
 export default function SEO({
-  description, lang, meta, title
-}: InferProps<typeof SEO.propTypes>) {
+  description = '', lang = 'en', meta, title
+}: InferProps<typeof SEO.propTypes> & HelmetProps) {
 
-  const { site } = useStaticQuery(
+  const { site } = useStaticQuery<SiteData>(
     graphql`
       query {
         site {
           siteMetadata {
             title
             description
-            author
           }
         }
       }
@@ -59,10 +59,6 @@ export default function SEO({
           content: 'summary',
         },
         {
-          name   : 'twitter:creator',
-          content: site.siteMetadata.author,
-        },
-        {
           name   : 'twitter:title',
           content: title,
         },
@@ -78,9 +74,8 @@ export default function SEO({
 
 SEO.propTypes = {
   description: PropTypes.string,
-  lang       : PropTypes.string,
-  meta       : PropTypes.arrayOf(PropTypes.object),
-  title      : PropTypes.string.isRequired,
+  lang       : PropTypes.string as Validator<string>,
+  meta       : PropTypes.arrayOf(PropTypes.object) as Validator<{ property: string; content: string | undefined; name?: undefined }>
 };
 
 SEO.defaultProps = {

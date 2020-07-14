@@ -2,9 +2,8 @@ import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes, { InferProps } from 'prop-types';
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { mainColor } from 'styles/colors';
-import { bodyFont } from 'styles/fonts';
-import { scrollbar } from 'styles/scrollbar';
+import { bodyFont, mainColor, scrollbar } from 'styles';
+import { SiteData } from 'types';
 import NavBar from './navBar/NavBar';
 import PageHeader from './PageHeader';
 
@@ -43,7 +42,7 @@ const Container = styled.div`
 
 export default function Layout({ children, header }: InferProps<typeof Layout.propTypes>) {
 
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<SiteData>(graphql`
     query SiteTitleQuery {
       site {
         siteMetadata {

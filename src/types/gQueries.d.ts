@@ -7,3 +7,14 @@ type ImageQuerySharp = {
     }
   }
 };
+
+type Meta = {
+  title: string,
+  description: string
+};
+
+type SiteData<M = Meta> = {
+  site: {
+    siteMetadata: M
+  }
+};

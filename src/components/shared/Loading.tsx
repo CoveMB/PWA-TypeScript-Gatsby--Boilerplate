@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { mainColor } from 'styles/colors';
+import { mainColor } from 'styles';
 
 const cubeGridScaleDelay = keyframes`
   0%, 70%, 100% {

@@ -8,9 +8,7 @@ import PropTypes, { InferProps, Validator } from 'prop-types';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { card } from 'styles/cards';
-import { ErrorFeedBack, Form, InputButton, Label } from 'styles/form';
-import { PageTitle } from 'styles/texts';
+import { card, ErrorFeedBack, Form, InputButton, Label, PageTitle } from 'styles';
 
 const Card = styled.div`
 ${card}
@@ -27,15 +25,7 @@ margin-bottom: 12px;
 }
 `;
 
-const propsTypes = {
-  location: PropTypes.shape({
-    search: PropTypes.string
-  }) as Validator<Location>
-};
-
-type Props = InferProps<typeof propsTypes>;
-
-const SetPassword = ({ location }: Props) => {
+export default function SetPassword({ location }: InferProps<typeof SetPassword.propTypes>) {
 
   const {
     register, handleSubmit, getValues, errors
@@ -138,6 +128,14 @@ const SetPassword = ({ location }: Props) => {
     </Layout>
   );
 
+}
+
+SetPassword.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string
+  }) as Validator<Location>
 };
 
-export default SetPassword;
+SetPassword.defaultProps = {
+  location: {},
+};

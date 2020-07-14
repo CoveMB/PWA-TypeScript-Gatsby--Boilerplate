@@ -13,6 +13,7 @@ module.exports = {
         allExtensions: true, // defaults to false
       },
     },
+
     'gatsby-plugin-netlify',
 
     // Allow use styled components

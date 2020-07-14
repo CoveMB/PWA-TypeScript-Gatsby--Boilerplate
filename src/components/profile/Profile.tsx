@@ -1,11 +1,11 @@
 import SEO from 'components/layout/Seo';
 import useHttp from 'hooks/http';
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from 'store/useStore';
-import { PageTitle } from 'styles/texts';
+import { PageTitle } from 'styles';
 import TokenList from './TokensList/TokenList';
 
-const Profile: FC = () => {
+export default function Profile() {
 
   const [ { user }, dispatch ] = useStore();
   const { sendRequest } = useHttp();
@@ -57,6 +57,4 @@ const Profile: FC = () => {
 
   );
 
-};
-
-export default Profile;
+}

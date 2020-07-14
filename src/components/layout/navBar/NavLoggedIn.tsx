@@ -1,21 +1,16 @@
 import { AuthContext } from 'contexts/auth';
 import { Link } from 'gatsby';
-import React, { FC, useContext } from 'react';
-import styled from 'styled-components';
-import { NavLink } from 'styles/links';
+import React, { useContext } from 'react';
+import { FlexDiv, NavLink } from 'styles';
 
-const Div = styled.div`
-  display: flex;
-`;
-
-// The navbar shown if you are logged in
-const LoggedIn: FC = () => {
+// The navbar part that shown if you are logged in
+export default function LoggedIn() {
 
   const { logOut, authToken } = useContext(AuthContext);
   const { token } = authToken;
 
   return (
-    <Div>
+    <FlexDiv>
       <Link to="/app/profile">
         <NavLink>
           Profile
@@ -30,9 +25,7 @@ const LoggedIn: FC = () => {
       >
         Logout
       </NavLink>
-    </Div>
+    </FlexDiv>
   );
 
-};
-
-export default LoggedIn;
+}

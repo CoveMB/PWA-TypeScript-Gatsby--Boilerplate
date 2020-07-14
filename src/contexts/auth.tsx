@@ -5,7 +5,9 @@ import { useStore } from 'store/useStore';
 
 // Initial auth context
 const initialState = {
-  user           : { email: '' },
+  user: {
+    email: '',
+  },
   isAuthenticated: false,
   authToken      : {
     token: '', expiration: ''

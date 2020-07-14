@@ -1,11 +1,9 @@
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
-import React, { FC, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useStore } from 'store/useStore';
 import styled from 'styled-components';
-import { button } from 'styles/button';
-import { card } from 'styles/cards';
-import { successColor } from 'styles/colors';
+import { button, card, successColor } from 'styles';
 
 const TokenListDiv = styled.div`
 ${card}
@@ -41,7 +39,7 @@ justify-content: space-around;
 align-items: center
 `;
 
-const TokenList: FC = () => {
+export default function TokenList() {
 
   const { logOut, authToken } = useContext(AuthContext);
   const { sendRequest } = useHttp();
@@ -86,6 +84,4 @@ const TokenList: FC = () => {
     </TokenListDiv>
   );
 
-};
-
-export default TokenList;
+}

@@ -6,8 +6,7 @@ import Img from 'gatsby-image';
 import PropTypes, { InferProps } from 'prop-types';
 import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { mainColor } from 'styles/colors';
-import { bodyFont } from 'styles/fonts';
+import { bodyFont, mainColor } from 'styles';
 import { ImageQuerySharp } from 'types';
 
 const Header = styled.header`

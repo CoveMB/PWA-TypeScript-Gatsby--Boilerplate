@@ -2,13 +2,12 @@ import Loading from 'components/shared/Loading';
 import { emailRegEx } from 'config/constants';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
-import PropTypes, { Validator } from 'prop-types';
-import React, { FC, useContext, useState } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import { secondColor } from 'styles/colors';
-import { ErrorFeedBack, Form, FormTitle, InputButton, Label, SuccessFeedBack } from 'styles/form';
+import { ErrorFeedBack, Form, FormTitle, InputButton, Label, secondColor, SuccessFeedBack } from 'styles';
 
 Modal.setAppElement('#___gatsby');
 const customStyles = {
@@ -40,17 +39,9 @@ type FormData = {
   password?: string
 };
 
-type Props = {
-  setAuthAction: (
-    { authModalOpen, authAction }: UserAuthAction
-  ) => void,
-  actions: AuthActions,
-  userAuthAction: UserAuthAction
-};
-
-const SignUpModal: FC<Props> = ({
+export default function SignUpModal({
   setAuthAction, userAuthAction, actions
-}) => {
+}: InferProps<typeof SignUpModal.propTypes>) {
 
   const { register, handleSubmit, errors } = useForm<FormData>();
   const {
@@ -58,8 +49,8 @@ const SignUpModal: FC<Props> = ({
   } = useHttp();
   const [ successFeedBack, setSuccessFeedBack ] = useState('');
   const { logIn } = useContext(AuthContext);
-  const { authModalOpen, authAction } = userAuthAction;
-  const { SIGNUP, LOGIN, PASSWORD_RESET } = actions;
+  const { authModalOpen, authAction } = userAuthAction as UserAuthAction;
+  const { SIGNUP, LOGIN, PASSWORD_RESET } = actions as AuthActions;
 
   const closeAuthModal = () => {
 
@@ -263,8 +254,9 @@ const SignUpModal: FC<Props> = ({
     </Modal>
   );
 
-};
+}
 
+// Props validation
 SignUpModal.propTypes = {
   userAuthAction: PropTypes.shape({
     authModalOpen: PropTypes.bool.isRequired,
@@ -272,14 +264,26 @@ SignUpModal.propTypes = {
       'login',
       'signup',
       'passwordReset'
-    ]) as Validator<PossibleAuthActions>
+    ])
   }).isRequired,
   setAuthAction: PropTypes.func.isRequired,
   actions      : PropTypes.shape({
-    LOGIN         : PropTypes.oneOf([ 'login' ]).isRequired as Validator<'login'>,
-    SIGNUP        : PropTypes.oneOf([ 'signup' ]).isRequired as Validator<'signup'>,
-    PASSWORD_RESET: PropTypes.oneOf([ 'passwordReset' ]).isRequired as Validator<'passwordReset'>
+    LOGIN         : PropTypes.oneOf([ 'login' ]).isRequired,
+    SIGNUP        : PropTypes.oneOf([ 'signup' ]).isRequired,
+    PASSWORD_RESET: PropTypes.oneOf([ 'passwordReset' ]).isRequired
   }).isRequired,
 };
 
-export default SignUpModal;
+// Types
+type PossibleAuthActions = 'login' | 'signup' | 'passwordReset';
+
+type AuthActions = {
+  LOGIN: 'login',
+  SIGNUP: 'signup',
+  PASSWORD_RESET: 'passwordReset'
+};
+
+type UserAuthAction = {
+  authModalOpen: boolean,
+  authAction?: PossibleAuthActions
+};

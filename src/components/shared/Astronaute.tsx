@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import React, { FC } from 'react';
+import React from 'react';
+import { ImageQuerySharp } from 'types';
 
 /*
  * This component is built using `gatsby-image` to automatically serve optimized
@@ -13,9 +14,9 @@ import React, { FC } from 'react';
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Astronaute: FC = () => {
+export default function Astronaute() {
 
-  const data = useStaticQuery(graphql`
+  const data = useStaticQuery<ImageQuerySharp>(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
         childImageSharp {
@@ -29,6 +30,4 @@ const Astronaute: FC = () => {
 
   return <Img fluid={data.placeholderImage.childImageSharp.fluid} />;
 
-};
-
-export default Astronaute;
+}
