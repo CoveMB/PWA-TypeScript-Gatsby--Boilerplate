@@ -40,7 +40,7 @@ module.exports = {
       }
     ],
     'no-cycle': 'off',
-    'react/prop-types': 'off',
+    // 'react/prop-types': 'off',
 
     // Typescript
     '@typescript-eslint/lines-between-class-members': [ 'warn', { 'exceptAfterOverload': true } ],
@@ -224,7 +224,7 @@ module.exports = {
     ]
   },
   env: {
-    'node'   : false,
+    'node'   : true,
     'browser': true
   },
 };

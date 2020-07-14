@@ -4,7 +4,8 @@ import Loading from 'components/shared/Loading';
 import { AuthContext } from 'contexts/auth';
 import { navigate } from 'gatsby';
 import useHttp from 'hooks/http';
-import React, { FC, useContext } from 'react';
+import PropTypes, { InferProps, Validator } from 'prop-types';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { card } from 'styles/cards';
@@ -26,19 +27,23 @@ margin-bottom: 12px;
 }
 `;
 
-type Props = {
-  location: Location
+const propsTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string
+  }) as Validator<Location>
 };
 
-const SetPassword: FC<Props> = ({ location }) => {
+type Props = InferProps<typeof propsTypes>;
+
+const SetPassword = ({ location }: Props) => {
 
   const {
     register, handleSubmit, getValues, errors
-  } = useForm();
+  } = useForm<{ password: string, passwordRepeat: string }>();
   const { logIn } = useContext(AuthContext);
   const { isLoading, sendRequest, httpError } = useHttp();
 
-  const storeTokenAndNavigate = (resetRequest) => {
+  const storeTokenAndNavigate = (resetRequest: {user: User, token: AuthToken}): void => {
 
     // Set the new token
     logIn(resetRequest);
@@ -48,7 +53,7 @@ const SetPassword: FC<Props> = ({ location }) => {
 
   };
 
-  const setPassword = async ({ password }: {password: string}) => {
+  const setPassword = async ({ password }: { password: string }): Promise<void> => {
 
     // The token should be located in the params of the url
     if (location.search.includes('?token=')) {
@@ -57,7 +62,7 @@ const SetPassword: FC<Props> = ({ location }) => {
       const token = location.search.replace('?token=', '');
 
       // Send a request to change the password with the new password
-      const { data, status } = await sendRequest({
+      const { data, status } = await sendRequest<{user: User, token: AuthToken}>({
         url    : '/set-password',
         method : 'POST',
         body   : { password },

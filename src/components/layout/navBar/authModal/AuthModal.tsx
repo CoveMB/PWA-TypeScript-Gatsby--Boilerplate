@@ -2,6 +2,7 @@ import Loading from 'components/shared/Loading';
 import { emailRegEx } from 'config/constants';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
+import PropTypes, { Validator } from 'prop-types';
 import React, { FC, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
@@ -262,6 +263,23 @@ const SignUpModal: FC<Props> = ({
     </Modal>
   );
 
+};
+
+SignUpModal.propTypes = {
+  userAuthAction: PropTypes.shape({
+    authModalOpen: PropTypes.bool.isRequired,
+    authAction   : PropTypes.oneOf([
+      'login',
+      'signup',
+      'passwordReset'
+    ]) as Validator<PossibleAuthActions>
+  }).isRequired,
+  setAuthAction: PropTypes.func.isRequired,
+  actions      : PropTypes.shape({
+    LOGIN         : PropTypes.oneOf([ 'login' ]).isRequired as Validator<'login'>,
+    SIGNUP        : PropTypes.oneOf([ 'signup' ]).isRequired as Validator<'signup'>,
+    PASSWORD_RESET: PropTypes.oneOf([ 'passwordReset' ]).isRequired as Validator<'passwordReset'>
+  }).isRequired,
 };
 
 export default SignUpModal;

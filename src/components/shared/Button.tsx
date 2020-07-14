@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
 import { button } from 'styles/button';
 
@@ -6,15 +7,21 @@ const StyledButton = styled.div`
   ${button}
 `;
 
-type Props = {
-  text: string,
-  type: string
+export default function Button({ text, type }: InferProps<typeof Button.propTypes>) {
+
+  return (
+    <>
+      <StyledButton type={type}>{text}</StyledButton>
+    </>
+  );
+
+}
+
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  type: PropTypes.string
 };
 
-const Button: FC<Props> = ({ text, type }) => (
-  <>
-    <StyledButton type={type}>{text}</StyledButton>
-  </>
-);
-
-export default Button;
+Button.defaultProps = {
+  type: 'submit'
+};

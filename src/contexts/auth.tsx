@@ -1,7 +1,6 @@
 import axios from 'config/axios-instance';
-import React, {
-  createContext, FC, useCallback, useEffect, useState
-} from 'react';
+import PropTypes, { InferProps } from 'prop-types';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { useStore } from 'store/useStore';
 
 // Initial auth context
@@ -55,11 +54,7 @@ const stateFromLocalStorage = (): AuthContextState => {
 // The context is loaded from state found in local storage
 export const AuthContext = createContext<AuthContext>(stateFromLocalStorage() as AuthContext);
 
-type Props = {
-  children: JSX.Element[] | JSX.Element
-};
-
-const AuthContextProvider: FC<Props> = ({ children }) => {
+export default function AuthContextProvider({ children }: InferProps<typeof AuthContextProvider.propTypes>) {
 
   const [ authState, setAuthState ] = useState(stateFromLocalStorage());
   const dispatch = useStore()[1];
@@ -220,6 +215,8 @@ const AuthContextProvider: FC<Props> = ({ children }) => {
     </AuthContext.Provider>
   );
 
-};
+}
 
-export default AuthContextProvider;
+AuthContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};

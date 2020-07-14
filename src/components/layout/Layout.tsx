@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import React, { FC } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { mainColor } from 'styles/colors';
 import { bodyFont } from 'styles/fonts';
@@ -40,12 +41,7 @@ const Container = styled.div`
   font-family: ${bodyFont};
 `;
 
-type Props = {
-  header: string
-  children: JSX.Element[] | JSX.Element
-};
-
-const Layout: FC<Props> = ({ children, header }) => {
+export default function Layout({ children, header }: InferProps<typeof Layout.propTypes>) {
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -68,6 +64,13 @@ const Layout: FC<Props> = ({ children, header }) => {
     </>
   );
 
+}
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+  header  : PropTypes.string
 };
 
-export default Layout;
+Layout.defaultProps = {
+  header: ''
+};

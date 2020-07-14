@@ -7,5 +7,6 @@ type AuthActions = {
 };
 
 type UserAuthAction = {
-  authModalOpen: boolean, authAction?: PossibleAuthActions
+  authModalOpen: boolean,
+  authAction?: PossibleAuthActions
 };

@@ -3,7 +3,8 @@ import LoggedOut from 'components/layout/navBar/NavLoggedOut';
 import { AuthContext } from 'contexts/auth';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import React, { FC, useContext } from 'react';
+import PropTypes, { InferProps } from 'prop-types';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { mainColor } from 'styles/colors';
 import { bodyFont } from 'styles/fonts';
@@ -42,11 +43,7 @@ const Icon = styled.div`
   animation: ${spin} 26s linear infinite;
 `;
 
-type Props = {
-  siteTitle: string
-};
-
-const NavBar: FC<Props> = ({ siteTitle }) => {
+export default function NavBar({ siteTitle = '' }: InferProps<typeof NavBar.propTypes>) {
 
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -86,6 +83,12 @@ const NavBar: FC<Props> = ({ siteTitle }) => {
     </Header>
   );
 
+}
+
+NavBar.propTypes = {
+  siteTitle: PropTypes.string,
 };
 
-export default NavBar;
+NavBar.defaultProps = {
+  siteTitle: '',
+};
