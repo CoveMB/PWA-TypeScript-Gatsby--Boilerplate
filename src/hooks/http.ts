@@ -73,7 +73,7 @@ const useHttp: UseHttp = (initialRequest) => {
     headers: {
 
       // If the AuthContext contains an authToken it will be included in the headers
-      Authorization: `Bearer ${token || 'no token'}`,
+      Authorization: `Bearer ${token || process.env.GATSBY_ACCESS_TOKEN}`,
       ...headers
     }
   });
