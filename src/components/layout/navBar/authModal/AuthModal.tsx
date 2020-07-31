@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import Loading from 'components/shared/Loading';
 import { emailRegEx } from 'config/constants';
 import { AuthContext } from 'contexts/auth';
@@ -8,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { ErrorFeedBack, Form, FormTitle, InputButton, Label, secondColor, SuccessFeedBack } from 'styles';
+import GoogleLoginButton from './GoogleLoginButton';
 
 Modal.setAppElement('#___gatsby');
 const customStyles = {
@@ -32,6 +34,12 @@ const TitleDiv = styled.div`
 const PasswordResetRequest = styled.p`
   color: ${secondColor};
   cursor: pointer
+`;
+
+const TextSeparator = styled.div`
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-around
 `;
 
 type FormData = {
@@ -182,6 +190,13 @@ export default function SignUpModal({
           Log In
         </FormTitle>
       </TitleDiv>
+      <GoogleLoginButton />
+      {authAction === SIGNUP
+      && (
+        <TextSeparator>
+          Or get a magic link
+        </TextSeparator>
+      )}
       <Form onSubmit={handleSubmit(submitAuthAction)}>
         {!successFeedBack
           && (
