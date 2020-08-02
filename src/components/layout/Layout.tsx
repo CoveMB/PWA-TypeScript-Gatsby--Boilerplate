@@ -24,7 +24,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
+    display: inherit !important;
+    color:  inherit !important;
   }
 
   input {

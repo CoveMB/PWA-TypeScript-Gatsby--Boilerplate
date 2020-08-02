@@ -1,3 +1,4 @@
+import Card from 'components/shared/Card';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
 import React, { useContext } from 'react';
@@ -57,8 +58,12 @@ export default function TokenList() {
   };
 
   return (
-    <TokenListDiv>
-      <TokenListTitle>Where you are connected: </TokenListTitle>
+    <Card
+      title="Where you are connected:"
+      style={{
+        width: '35%'
+      }}
+    >
       {userData.tokens.map((token) => (
         <TokenDiv key={token.token}>
           <TokenTitle
@@ -81,7 +86,7 @@ export default function TokenList() {
       >
         Logout All
       </RevokeAllButton>
-    </TokenListDiv>
+    </Card>
   );
 
 }
