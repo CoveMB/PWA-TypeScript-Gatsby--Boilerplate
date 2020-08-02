@@ -4,12 +4,8 @@ import useHttp from 'hooks/http';
 import React, { useContext } from 'react';
 import { useStore } from 'store/useStore';
 import styled from 'styled-components';
-import { button, card, successColor } from 'styles';
+import { button, successColor } from 'styles';
 
-const TokenListDiv = styled.div`
-${card}
-width: 35%
-`;
 
 const RevokeButton = styled.div`
 ${button}
@@ -18,12 +14,6 @@ ${button}
 const RevokeAllButton = styled.div`
 ${button}
 margin: 20px auto 15px auto
-`;
-
-const TokenListTitle = styled.p`
-  font-size: 2em;
-  text-align: center;
-  font-weight: bold
 `;
 
 const TokenTitle = styled.p`
