@@ -1,21 +1,27 @@
+import { Dispatch } from 'react';
+import { ModelsActions, State } from 'types';
+
 // Actions
-type Action<M> = (globalState: PartialState, payload: M) => PartialState;
+export type Action<M> = (globalState: State, payload: Partial<M>) => PartialState;
 
-type Actions<M> = Record<string, Action<M> >;
+export type Actions<M> = Record<string, Action<M> >;
 
-type PossibleActions = ModelsActions[keyof ModelsActions];
+export type PossibleActions = ModelsActions[keyof ModelsActions];
 
-type Listener = Dispatch[];
+export type Listeners = Dispatch[];
 
 // Store
-type PossibleStores = State[keyof State];
+export type PossibleStores = State[keyof State];
 
-type PartialState = Partial<State>;
+export type PartialState = Partial<State>;
 
-type StoreDispatch = (actionIdentifier: PossibleActions, payload?: PossibleStores) => void;
+export type StoreDispatch = (
+  actionIdentifier: PossibleActions,
+  payload?: Partial<PossibleStores>
+) => void;
 
-type UseStore = (shouldListen = true) => [State, StoreDispatch];
+export type UseStore = (shouldListen = true) => [State, StoreDispatch];
 
-type InitStore = (storeActions: Actions, initialSate: PartialState) => void;
+export type InitStore = (storeActions: Actions, initialSate: PartialState) => void;
 
-type ConfigStore = () => void;
+export type ConfigStore = () => void;

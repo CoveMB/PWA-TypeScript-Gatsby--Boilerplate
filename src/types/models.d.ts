@@ -1,33 +1,34 @@
 // Models
-type AuthToken = {
+export type AuthToken = {
   token: string,
   expiration: Date | string,
 };
 
-type Token = {
+export type Token = {
   token: string,
   expiration: Date | string,
   device: string
 };
 
-type User = {
-  email?: string,
-  uuid?: string
+export type User = {
+  uuid?: string,
+  admin?: boolean,
 };
 
-type UserData = {
+export type UserData = {
   tokens: Token[],
+  email: string,
 };
 
 // State & Actions types //
 // State
-type State = {
+export type State = {
   user: User
   userData: UserData
 };
 
 // Actions
-type ModelsActions = {
+export type ModelsActions = {
   user: 'SET_USER'
   userData: 'UPDATE_USER_DATA'
 };

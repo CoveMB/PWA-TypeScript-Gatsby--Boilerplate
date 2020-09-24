@@ -2,10 +2,10 @@ import Layout from 'components/layout/Layout';
 import SEO from 'components/layout/Seo';
 import Astronaute from 'components/shared/Astronaute';
 import { Link } from 'gatsby';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 // The home page
-export default function IndexPage() {
+export default function IndexPage(): ReactElement {
 
   return (
     <Layout>

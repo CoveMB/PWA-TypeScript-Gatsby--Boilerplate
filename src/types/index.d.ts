@@ -1,5 +1,5 @@
 export * from './contexts';
-export * from './gQueries';
+export * from './graph-queries';
 export * from './http-hook';
 export * from './models';
 export * from './module';

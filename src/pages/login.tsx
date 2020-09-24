@@ -1,10 +1,10 @@
 import Layout from 'components/layout/Layout';
 import SEO from 'components/layout/Seo';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { PageTitle } from 'styles';
 
 // The login page is the one that unauthenticated user are redirected to
-export default function Login() {
+export default function Login(): ReactElement {
 
   return (
     <Layout>

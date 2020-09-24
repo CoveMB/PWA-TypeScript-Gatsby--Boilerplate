@@ -1,12 +1,14 @@
+import { GoogleClientId } from 'config/constants';
 /* eslint-disable @typescript-eslint/naming-convention */
 import { AuthContext } from 'contexts/auth';
 import { navigate } from 'gatsby';
 import useHttp from 'hooks/http';
 import PropTypes, { InferProps } from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import styled from 'styled-components';
 import { ErrorFeedBack } from 'styles';
+import { Token, User } from 'types';
 
 const ThirdPartyLogin = styled.div`
   margin-top: 35px;
@@ -14,7 +16,9 @@ const ThirdPartyLogin = styled.div`
   justify-content: space-around
 `;
 
-export default function GoogleLoginButton({ redirect, redirectTo }: InferProps<typeof GoogleLoginButton.propTypes>) {
+export default function GoogleLoginButton(
+  { redirect, redirectTo }: InferProps<typeof GoogleLoginButton.propTypes>
+): ReactElement {
 
   const { sendRequest } = useHttp();
   const { logIn } = useContext(AuthContext);
@@ -48,7 +52,7 @@ export default function GoogleLoginButton({ redirect, redirectTo }: InferProps<t
 
     if (redirect) {
 
-      navigate(redirectTo!);
+      navigate(redirectTo as string);
 
     }
 
@@ -58,9 +62,11 @@ export default function GoogleLoginButton({ redirect, redirectTo }: InferProps<t
     <>
       <ThirdPartyLogin>
         <GoogleLogin
-          clientId={process.env.GATSBY_GOOGLE_LOGIN_CLIENT_ID as string}
+          clientId={GoogleClientId}
           buttonText="Login with Google"
-          onSuccess={responseGoogle as (response: GoogleLoginResponse | GoogleLoginResponseOffline) => void}
+          onSuccess={
+            responseGoogle as (response: GoogleLoginResponse | GoogleLoginResponseOffline) => void
+          }
           onFailure={() => setLoginError('Oups something went wrong')}
           cookiePolicy="single_host_origin"
         />

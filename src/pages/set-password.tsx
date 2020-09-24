@@ -6,10 +6,13 @@ import { AuthContext } from 'contexts/auth';
 import { navigate } from 'gatsby';
 import useHttp from 'hooks/http';
 import PropTypes, { InferProps, Validator } from 'prop-types';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { card, ErrorFeedBack, Form, InputButton, Label, PageTitle } from 'styles';
+import {
+  card, ErrorFeedBack, Form, InputButton, Label, PageTitle
+} from 'styles';
+import { AuthToken, User } from 'types';
 
 const Card = styled.div`
 ${card}
@@ -31,7 +34,9 @@ margin-bottom: 12px;
 }
 `;
 
-export default function SetPassword({ location }: InferProps<typeof SetPassword.propTypes>) {
+export default function SetPassword(
+  { location }: InferProps<typeof SetPassword.propTypes>
+): ReactElement {
 
   const {
     register, handleSubmit, getValues, errors
@@ -59,15 +64,14 @@ export default function SetPassword({ location }: InferProps<typeof SetPassword.
 
       // Send a request to change the password with the new password
       const { data, status } = await sendRequest<{user: User, token: AuthToken}>({
-        url    : '/set-password',
-        method : 'POST',
-        body   : { password },
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        url   : '/set-password',
+        method: 'PUT',
+        body  : {
+          password, token
+        },
       });
 
-      if (status === 200) {
+      if (status === 204) {
 
         // If the request is successful the the new token
         storeTokenAndNavigate(data);

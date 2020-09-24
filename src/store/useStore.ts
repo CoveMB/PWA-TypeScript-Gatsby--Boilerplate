@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import {
+  Actions, PossibleStores, UseStore, StoreDispatch, State, InitStore, Listeners
+} from 'types';
 
 // Initial global state listener and actions for the store
-let globalState: PartialState = {};
-let listeners: Listener = [];
-let actions: Actions<PossibleStores> = {};
+let globalState = {} as State;
+let listeners = [] as Listeners;
+let actions = {} as Actions<PossibleStores>;
 
 export const useStore: UseStore = (shouldListen = true) => {
 
@@ -11,7 +14,7 @@ export const useStore: UseStore = (shouldListen = true) => {
   const setGlobalState = useState(globalState)[1];
 
   // Create the dispatch method
-  const dispatch: StoreDispatch = useCallback((actionIdentifier, payload) => {
+  const dispatch: StoreDispatch = useCallback((actionIdentifier, payload = {}) => {
 
     const newState = actions[actionIdentifier](globalState, payload);
 
@@ -50,7 +53,7 @@ export const useStore: UseStore = (shouldListen = true) => {
   }, []);
 
   // calling useState hook will return the state and a dispatch method to trigger actions
-  return [ globalState as State, dispatch ];
+  return [ globalState, dispatch ];
 
 };
 

@@ -2,10 +2,12 @@
 import { AuthContext } from 'contexts/auth';
 import { navigate } from 'gatsby';
 import PropTypes, { InferProps, Validator } from 'prop-types';
-import React, { ElementType, useContext } from 'react';
+import React, { ElementType, ReactElement, useContext } from 'react';
 
 // The private route will be protected under authentication
-export default function PrivateRoute({ component: Component, location, ...rest }: InferProps<typeof PrivateRoute.propTypes>) {
+export default function PrivateRoute(
+  { component: Component, location, ...rest }: InferProps<typeof PrivateRoute.propTypes>
+): ReactElement | null {
 
   // Get if the user is authenticated from auth context
   const { isAuthenticated } = useContext(AuthContext);

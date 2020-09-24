@@ -1,5 +1,5 @@
 import PropTypes, { InferProps } from 'prop-types';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 import { headerFont, mainColor } from 'styles';
 
@@ -19,7 +19,7 @@ const Div = styled.div`
   margin: auto
 `;
 
-export default function PageHeader({ text = '' }: InferProps<typeof PageHeader.propTypes>) {
+export default function PageHeader({ text = '' }: InferProps<typeof PageHeader.propTypes>): ReactElement {
 
   return (
     <Div>

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { FlexDiv, NavLink } from 'styles';
 import AuthModal from './authModal/AuthModal';
 
 // The navbar shown if you are logged out
-export default function LoggedOut() {
+export default function LoggedOut(): ReactElement {
 
   const actions = {
     LOGIN         : 'login',

@@ -1,11 +1,10 @@
 import Card from 'components/shared/Card';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { useStore } from 'store/useStore';
 import styled from 'styled-components';
 import { button, successColor } from 'styles';
-
 
 const RevokeButton = styled.div`
 ${button}
@@ -19,7 +18,7 @@ margin: 20px auto 15px auto
 const TokenTitle = styled.p`
 font-size: 1.4em;
 text-align: center;
-${({ active }) => active && `
+${({ active }: {active: boolean}) => active && `
     color: ${successColor};
   `}
 `;
@@ -30,17 +29,16 @@ justify-content: space-around;
 align-items: center
 `;
 
-export default function TokenList() {
+export default function TokenList(): ReactElement {
 
-  const { logOut, authToken } = useContext(AuthContext);
+  const { logOut } = useContext(AuthContext);
   const { sendRequest } = useHttp();
   const [ { userData }, dispatch ] = useStore();
 
-  const revokeToken = (tokenToRevoke: string, registeredAuthToken: string) => {
+  const revokeToken = (tokenToRevoke: string) => {
 
     logOut({
-      tokenToRevoke,
-      authToken: registeredAuthToken
+      tokenToRevoke
     });
 
     dispatch('UPDATE_USER_DATA', { tokens: userData.tokens.filter((token) => token.token !== tokenToRevoke) });
@@ -56,22 +54,20 @@ export default function TokenList() {
     >
       {userData.tokens.map((token) => (
         <TokenDiv key={token.token}>
-          <TokenTitle
-            active={token.token === authToken.token}
-          >
+          <TokenTitle>
             {token.device || 'unknown'}
-
           </TokenTitle>
           <RevokeButton
             type="button"
-            onClick={() => revokeToken(token.token, authToken.token)}
+            onClick={() => revokeToken(token.token)}
           >
             Logout
           </RevokeButton>
         </TokenDiv>
       ))}
       <RevokeAllButton onClick={() => sendRequest({
-        url: 'logoutAll', method: 'POST'
+        url   : 'logout-all',
+        method: 'DELETE'
       })}
       >
         Logout All

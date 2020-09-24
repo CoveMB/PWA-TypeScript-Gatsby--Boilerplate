@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes, { InferProps } from 'prop-types';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { bodyFont, mainColor, scrollbar } from 'styles';
 import { SiteData } from 'types';
@@ -42,7 +42,9 @@ const Container = styled.div`
   font-family: ${bodyFont};
 `;
 
-export default function Layout({ children, header }: InferProps<typeof Layout.propTypes>) {
+export default function Layout(
+  { children, header }: InferProps<typeof Layout.propTypes>
+): ReactElement {
 
   const data = useStaticQuery<SiteData>(graphql`
     query SiteTitleQuery {

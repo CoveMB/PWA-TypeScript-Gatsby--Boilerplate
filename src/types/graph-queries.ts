@@ -1,6 +1,6 @@
 import { FluidObject } from 'gatsby-image';
 
-type ImageQuerySharp = {
+export type ImageQuerySharp = {
   placeholderImage: {
     childImageSharp: {
       fluid: FluidObject | FluidObject[]
@@ -8,12 +8,12 @@ type ImageQuerySharp = {
   }
 };
 
-type Meta = {
+export type Meta = {
   title: string,
   description: string
 };
 
-type SiteData<M = Meta> = {
+export type SiteData<M = Meta> = {
   site: {
     siteMetadata: M
   }

@@ -1,11 +1,11 @@
 import PropTypes, { InferProps } from 'prop-types';
-import React, { CSSProperties, Requireable } from 'react';
+import React, { CSSProperties, ReactElement, Requireable } from 'react';
 import styled from 'styled-components';
 import { card } from 'styles';
 
 const CardDiv = styled.div`
   ${card}
-  ${({ style }) => style}
+  ${({ style }: {style: CSSProperties}) => style}
 `;
 
 const CardTitle = styled.p`
@@ -16,7 +16,7 @@ const CardTitle = styled.p`
 
 export default function Card({
   children, title, style, onClick
-}: InferProps<typeof Card.propTypes>) {
+}: InferProps<typeof Card.propTypes>): ReactElement {
 
   return (
     <CardDiv style={style} onClick={onClick}>

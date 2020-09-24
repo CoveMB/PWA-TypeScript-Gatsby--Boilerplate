@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { ApiEndpoint } from './constants';
 
 // Instantiate axios instance with backend of the app as default baseUrl
 const internalInstance = axios.create({
-  baseURL: process.env.GATSBY_API_ENDPOINT,
-  headers: {
-    'Content-Type': 'application/json'
+  baseURL        : ApiEndpoint,
+  withCredentials: true,
+  headers        : {
+    'Content-Type': 'application/json',
   },
 
   // For the internal api call we dont want to throw error on 400's errors

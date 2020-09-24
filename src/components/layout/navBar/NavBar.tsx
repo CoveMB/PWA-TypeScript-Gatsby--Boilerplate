@@ -4,7 +4,7 @@ import { AuthContext } from 'contexts/auth';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import PropTypes, { InferProps } from 'prop-types';
-import React, { useContext } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { bodyFont, mainColor } from 'styles';
 import { ImageQuerySharp } from 'types';
@@ -42,7 +42,7 @@ const Icon = styled.div`
   animation: ${spin} 26s linear infinite;
 `;
 
-export default function NavBar({ siteTitle = '' }: InferProps<typeof NavBar.propTypes>) {
+export default function NavBar({ siteTitle = '' }: InferProps<typeof NavBar.propTypes>): ReactElement {
 
   const { isAuthenticated } = useContext(AuthContext);
 

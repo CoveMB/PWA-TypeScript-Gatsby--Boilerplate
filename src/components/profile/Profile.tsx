@@ -1,48 +1,49 @@
 import SEO from 'components/layout/Seo';
 import useHttp from 'hooks/http';
-import React, { useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useStore } from 'store/useStore';
 import { PageTitle } from 'styles';
+import { UserData } from 'types';
 import TokenList from './TokensList/TokenList';
 
-export default function Profile() {
+export default function Profile(): ReactElement {
 
-  const [ { user }, dispatch ] = useStore();
+  const [ { userData, user }, dispatch ] = useStore();
   const { sendRequest } = useHttp();
 
   useEffect(() => {
 
     (async () => {
 
-      if (user.email) {
+      if (user) {
 
         // Query the user
         const query = /* GraphQL */`
-          query {
-            user(uuid: "${user.uuid}"){
-              tokens(orderBy: id) {
-                device
-                token
-              }
+        query {
+          user(uuid: "${user.uuid}"){
+            email
+            tokens(orderBy: id) {
+              device
+              token
             }
-          }`;
+          }
+        }`;
 
-        const { data } = await sendRequest<{data: {user: UserData}}>({
+        const { data: { data: { user: { tokens, email } } } } = await sendRequest<
+        {data: {user: UserData}}
+        >({
           url: '/graphql', method: 'POST', body: { query }
         });
 
-        dispatch('UPDATE_USER_DATA', { tokens: data.data.user.tokens });
+        dispatch('UPDATE_USER_DATA', {
+          tokens, email
+        });
 
       }
 
     })();
 
-  }, [
-    sendRequest,
-    user.email,
-    user.uuid,
-    dispatch
-  ]);
+  }, [ user ]);
 
   return (
     <>
@@ -50,7 +51,7 @@ export default function Profile() {
       <PageTitle>
         Welcome
         {' '}
-        {user.email}
+        {userData?.email}
       </PageTitle>
       <TokenList />
     </>

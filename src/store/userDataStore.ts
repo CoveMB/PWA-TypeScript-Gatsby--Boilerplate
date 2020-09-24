@@ -1,3 +1,4 @@
+import { ConfigStore, Actions, UserData } from 'types';
 import { initStore } from './useStore';
 
 // Configure here actions for user store
@@ -13,7 +14,11 @@ const configureUserDataStore: ConfigStore = () => {
   };
 
   // Configure here initial state for the store
-  initStore(actions, { userData: { tokens: [] } });
+  initStore(actions, {
+    userData: {
+      tokens: [], email: ''
+    }
+  });
 
 };
 

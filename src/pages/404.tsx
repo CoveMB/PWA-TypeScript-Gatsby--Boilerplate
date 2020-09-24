@@ -1,8 +1,8 @@
 import Layout from 'components/layout/Layout';
 import SEO from 'components/layout/Seo';
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-export default function NotFoundPage() {
+export default function NotFoundPage(): ReactElement {
 
   return (
     <Layout>

@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import Loading from 'components/shared/Loading';
-import { emailRegEx } from 'config/constants';
+import { AccessToken, emailRegEx } from 'config/constants';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
 import PropTypes, { InferProps } from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import { ErrorFeedBack, Form, FormTitle, InputButton, Label, secondColor, SuccessFeedBack } from 'styles';
+import {
+  ErrorFeedBack, Form, FormTitle, InputButton, Label, secondColor, SuccessFeedBack
+} from 'styles';
+import { Token, User } from 'types';
 import GoogleLoginButton from './GoogleLoginButton';
 
 Modal.setAppElement('#___gatsby');
@@ -47,9 +50,11 @@ type FormData = {
   password?: string
 };
 
-export default function SignUpModal({
-  setAuthAction, userAuthAction, actions
-}: InferProps<typeof SignUpModal.propTypes>) {
+export default function AuthModal(
+  {
+    setAuthAction, userAuthAction, actions
+  }: InferProps<typeof AuthModal.propTypes>
+): ReactElement {
 
   const { register, handleSubmit, errors } = useForm<FormData>();
   const {
@@ -88,10 +93,13 @@ export default function SignUpModal({
 
     // Send register request
     const { status } = await sendRequest({
-      url   : '/users',
+      url   : '/register',
       method: 'POST',
       body  : {
         email
+      },
+      headers: {
+        Authorization: `Bearer ${AccessToken}`
       }
     });
 
@@ -107,7 +115,12 @@ export default function SignUpModal({
 
     // Send reset password request
     const { status } = await sendRequest({
-      url: '/request-password-reset', method: 'POST', body: userInfo
+      url    : '/request-password-reset',
+      method : 'POST',
+      body   : userInfo,
+      headers: {
+        Authorization: `Bearer ${AccessToken}`
+      }
     });
 
     if (status === 200) {
@@ -272,7 +285,7 @@ export default function SignUpModal({
 }
 
 // Props validation
-SignUpModal.propTypes = {
+AuthModal.propTypes = {
   userAuthAction: PropTypes.shape({
     authModalOpen: PropTypes.bool.isRequired,
     authAction   : PropTypes.oneOf([

@@ -1,48 +1,40 @@
-import axios from 'config/axios-instance';
+import axiosInstance from 'config/axios-instance';
+import getCSRF from 'config/config-csrf';
+import Cookie from 'js-cookie';
 import PropTypes, { InferProps } from 'prop-types';
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, {
+  createContext, ReactElement, useCallback, useEffect, useState
+} from 'react';
 import { useStore } from 'store/useStore';
+import {
+  AuthContextState, AuthContextType, Login, LogOut, RemoveUserCookie
+} from 'types';
+import { isBrowser } from 'utils';
 
 // Initial auth context
 const initialState = {
   user: {
-    email: '',
+    uuid : '',
+    admin: false,
   },
-  isAuthenticated: false,
-  authToken      : {
-    token: '', expiration: ''
-  },
+  isAuthenticated: false
 };
 
 //  Launching the app we get eventual tokens stored in local storage to load in the auth context
-const stateFromLocalStorage = (): AuthContextState => {
+const stateFromCookie = (): AuthContextState => {
 
   let storedState = {};
 
-  // Check if local storage is available
-  if (typeof localStorage !== 'undefined') {
+  // Get the auth storage
+  const storedUser = isBrowser() && JSON.parse(Cookie.get('app.user') || '""');
 
-    // Get the auth storage
-    const storedAuth = JSON.parse(localStorage.getItem('auth') || '{}');
-    const { token, user } = storedAuth;
+  // If there is a token in the auth load it in the state with the user
+  if (storedUser) {
 
-    // If there is a token in the auth load it in the state with the user
-    if (token && token.token) {
-
-      storedState = {
-        user,
-        isAuthenticated: true,
-        authToken      : {
-          token: token.token, expiration: new Date(token.expiration)
-        },
-      };
-
-    } else {
-
-      // If no token if found clean storage
-      localStorage.removeItem('auth');
-
-    }
+    storedState = {
+      user           : storedUser,
+      isAuthenticated: true,
+    };
 
   }
 
@@ -54,11 +46,15 @@ const stateFromLocalStorage = (): AuthContextState => {
 };
 
 // The context is loaded from state found in local storage
-export const AuthContext = createContext<AuthContext>(stateFromLocalStorage() as AuthContext);
+export const AuthContext = createContext<
+AuthContextType
+>(stateFromCookie() as AuthContextType);
 
-export default function AuthContextProvider({ children }: InferProps<typeof AuthContextProvider.propTypes>) {
+export default function AuthContextTypeProvider(
+  { children }: InferProps<typeof AuthContextTypeProvider.propTypes>
+): ReactElement {
 
-  const [ authState, setAuthState ] = useState(stateFromLocalStorage());
+  const [ authState, setAuthState ] = useState(stateFromCookie());
   const dispatch = useStore()[1];
 
   const updateStateAndStore = useCallback((user, newAuthState = false) => {
@@ -79,59 +75,50 @@ export default function AuthContextProvider({ children }: InferProps<typeof Auth
 
   }, [ dispatch ]);
 
-  const setToken: SetToken = ({ user, token }) => {
+  const removeUserCookie: RemoveUserCookie = () => {
 
-    // Store the token and user in local storage
-    localStorage.setItem('auth', JSON.stringify({
-      user,
-      token,
-    }));
-
-  };
-
-  const unsetToken: UnsetToken = () => {
-
-    // Remove token from local storage
-    localStorage.removeItem('auth');
+    Cookie.remove('app.user');
+    Cookie.remove('app.user.sig');
 
   };
 
   // Set token will store the token and user in local storage and set the state and app store
-  const logIn: Login = ({ user, token }) => {
-
-    setToken({
-      user, token
-    });
+  const logIn: Login = ({ user }) => {
 
     // Update state of the app
     updateStateAndStore(user, {
-      authToken: {
-        token: token.token, expiration: new Date(token.expiration)
-      },
+      user,
       isAuthenticated: true
     });
 
   };
 
   // Log out will can logout user from the app and revoke a token in the backend
-  const logOut: LogOut = useCallback(async ({ tokenToRevoke, logOutUser, authToken }) => {
+  const logOut: LogOut = useCallback(async ({ tokenToRevoke, logOutUser }) => {
 
     // If a token to revoke is pass to the function it will be send to the backend
     if (tokenToRevoke) {
 
-      await axios.internalInstance({
-        url   : '/logout',
-        method: 'POST',
-
-        // The token to be revoked is ent
-        data   : { token: tokenToRevoke },
+      await axiosInstance.internalInstance({
+        url    : '/logout',
+        method : 'DELETE',
         headers: {
+          'csrf-token': await getCSRF(),
+        },
 
-          // The endpoint is protected so we need to authenticate
-          // either with the authToken if we are not the revoking the token use for the actual session authentication
-          // If we are revoking an other token the actual session's token should be contained in authToken
-          Authorization: `Bearer ${authToken || tokenToRevoke}`,
-        }
+        // The token to be revoked is sent
+        data: { token: tokenToRevoke },
+      });
+
+    } else {
+
+      // The auth token in the cookie will be revoked
+      await axiosInstance.internalInstance({
+        url    : '/logout',
+        method : 'DELETE',
+        headers: {
+          'csrf-token': await getCSRF(),
+        },
       });
 
     }
@@ -140,7 +127,7 @@ export default function AuthContextProvider({ children }: InferProps<typeof Auth
     if (logOutUser) {
 
       // Remove token from local storage
-      unsetToken();
+      removeUserCookie();
 
       // Update state of the app
       updateStateAndStore({}, initialState);
@@ -156,19 +143,18 @@ export default function AuthContextProvider({ children }: InferProps<typeof Auth
 
       try {
 
-        const { authToken, user } = authState;
-        const { token, expiration } = authToken;
+        const { user, isAuthenticated } = authState;
 
         // If there is a token and it is not expired
-        if (token && expiration > new Date()) {
+        if (isAuthenticated) {
 
           // Check the token in the backend
-          const check = await axios.internalInstance({
+          const check = await axiosInstance.internalInstance({
             url    : '/check-token',
-            method : 'POST',
+            method : 'GET',
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              'csrf-token': await getCSRF(),
+            },
           });
 
           if (check.status === 200) {
@@ -183,30 +169,17 @@ export default function AuthContextProvider({ children }: InferProps<typeof Auth
 
           }
 
-        } else {
-
-          // Else the token expired so we log the user out
-          await logOut({
-            logOutUser   : true,
-            tokenToRevoke: token
-          });
-
         }
 
       } catch (error) {
 
-        await logOut({});
+        await logOut({ logOutUser: true });
 
       }
 
     })();
 
-  }, [
-    updateStateAndStore,
-    authState,
-    logOut,
-    dispatch
-  ]);
+  }, [ ]);
 
   return (
     <AuthContext.Provider value={{
@@ -219,6 +192,6 @@ export default function AuthContextProvider({ children }: InferProps<typeof Auth
 
 }
 
-AuthContextProvider.propTypes = {
+AuthContextTypeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
