@@ -17,7 +17,8 @@ module.exports = {
       "@typescript-eslint/parser": [
         ".ts",
         ".tsx",
-        
+        ".js",
+        ".jsx"
       ]
     },
     "import/extensions": [
@@ -87,11 +88,11 @@ module.exports = {
     ],
     "indent": "off",
     "@typescript-eslint/indent": [
-      "warn"
+      "error"
     ],
     "comma-spacing": "off",
     "@typescript-eslint/comma-spacing": [
-      "warn"
+      "error"
     ],
     // length
     "max-len": [
@@ -101,7 +102,8 @@ module.exports = {
         "ignoreStrings": true,
         "ignoreUrls": true,
         "ignoreComments": true,
-        "ignoreTemplateLiterals": true
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
       }
     ],
     "import/prefer-default-export": "off",
@@ -140,7 +142,8 @@ module.exports = {
       "warn",
       {
         "exceptions": {
-          "VariableDeclarator": true
+          "VariableDeclarator": true,
+          "Property": true
         },
         "ignoreEOLComments": true
       }
@@ -265,6 +268,11 @@ module.exports = {
         "multiline": true,
         "minItems": 3
       }
+    ],
+    // Function rules
+    "arrow-parens": [
+      "warn",
+      "always"
     ]
   },
   "env": {
