@@ -17,7 +17,8 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         images    : path.resolve(__dirname, 'src/images'),
         store     : path.resolve(__dirname, 'src/store'),
         styles    : path.resolve(__dirname, 'src/styles'),
-        utils     : path.resolve(__dirname, 'src/utils')
+        utils     : path.resolve(__dirname, 'src/utils'),
+        types     : path.resolve(__dirname, 'src/types')
       }
     }
   });

@@ -43,7 +43,11 @@ export default function Profile(): ReactElement {
 
     })();
 
-  }, [ user ]);
+  }, [
+    user,
+    sendRequest,
+    dispatch
+  ]);
 
   return (
     <>
