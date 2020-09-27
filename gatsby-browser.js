@@ -2,18 +2,16 @@ import AuthContextProvider from 'contexts/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 import 'config/config-csrf';
-import { configureUserDataStore, configureUserStore } from 'store';
-
-// Configure stores
-configureUserStore();
-configureUserDataStore();
+import { RecoilRoot } from 'recoil';
 
 // Wrap the app in the AuthContext
 export const wrapRootElement = ({ element }) => (
   // eslint-disable-next-line react/jsx-filename-extension
-  <AuthContextProvider>
-    {element}
-  </AuthContextProvider>
+  <RecoilRoot>
+    <AuthContextProvider>
+      {element}
+    </AuthContextProvider>
+  </RecoilRoot>
 );
 
 wrapRootElement.propTypes = {

@@ -5,11 +5,12 @@ import PropTypes, { InferProps } from 'prop-types';
 import React, {
   createContext, ReactElement, useCallback, useEffect, useState
 } from 'react';
-import { useStore } from 'store/useStore';
 import {
   AuthContextState, AuthContextType, Login, LogOut, RemoveUserCookie
 } from 'types';
 import { isBrowser } from 'utils';
+import { useRecoilState } from 'recoil';
+import { userState } from 'store/atoms';
 
 // Initial auth context
 const initialState = {
@@ -56,7 +57,7 @@ export default function AuthContextTypeProvider(
 ): ReactElement {
 
   const [ authState, setAuthState ] = useState(stateFromCookie());
-  const dispatch = useStore()[1];
+  const setUser = useRecoilState(userState)[1];
 
   const updateStateAndStore = useCallback((user, newAuthState = false) => {
 
@@ -70,11 +71,11 @@ export default function AuthContextTypeProvider(
     if (user) {
 
       // Set the user in the app store
-      dispatch('SET_USER', user);
+      setUser(user);
 
     }
 
-  }, [ dispatch ]);
+  }, [ setUser ]);
 
   const removeUserCookie: RemoveUserCookie = () => {
 

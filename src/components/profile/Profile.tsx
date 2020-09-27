@@ -1,14 +1,16 @@
 import SEO from 'components/layout/Seo';
 import useHttp from 'hooks/http';
 import React, { ReactElement, useEffect } from 'react';
-import { useStore } from 'store/useStore';
+import { useRecoilState } from 'recoil';
+import { userDataState, userState } from 'store/atoms';
 import { PageTitle } from 'styles';
 import { UserData } from 'types';
 import TokenList from './TokensList/TokenList';
 
 export default function Profile(): ReactElement {
 
-  const [ { userData, user }, dispatch ] = useStore();
+  const [ userData, setUserData ] = useRecoilState(userDataState);
+  const [ user ] = useRecoilState(userState);
   const { sendRequest } = useHttp();
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Profile(): ReactElement {
           url: '/graphql', method: 'POST', body: { query }
         });
 
-        dispatch('UPDATE_USER_DATA', {
+        setUserData({
           tokens, email
         });
 
@@ -43,11 +45,7 @@ export default function Profile(): ReactElement {
 
     })();
 
-  }, [
-    user,
-    sendRequest,
-    dispatch
-  ]);
+  }, [ user, sendRequest ]);
 
   return (
     <>

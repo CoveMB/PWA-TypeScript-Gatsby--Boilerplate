@@ -2,9 +2,10 @@ import Card from 'components/shared/Card';
 import { AuthContext } from 'contexts/auth';
 import useHttp from 'hooks/http';
 import React, { ReactElement, useContext } from 'react';
-import { useStore } from 'store/useStore';
 import styled from 'styled-components';
 import { button, successColor } from 'styles';
+import { useRecoilState } from 'recoil';
+import { userDataState } from 'store/atoms';
 
 const RevokeButton = styled.div`
 ${button}
@@ -31,9 +32,9 @@ align-items: center
 
 export default function TokenList(): ReactElement {
 
+  const [ userData, setUserData ] = useRecoilState(userDataState);
   const { logOut } = useContext(AuthContext);
   const { sendRequest } = useHttp();
-  const [ { userData }, dispatch ] = useStore();
 
   const revokeToken = (tokenToRevoke: string) => {
 
@@ -41,7 +42,9 @@ export default function TokenList(): ReactElement {
       tokenToRevoke
     });
 
-    dispatch('UPDATE_USER_DATA', { tokens: userData.tokens.filter((token) => token.token !== tokenToRevoke) });
+    setUserData({
+      ...userData, tokens: userData.tokens.filter((token) => token.token !== tokenToRevoke)
+    });
 
   };
 
