@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import {
   ErrorFeedBack, Form, FormTitle, InputButton, Label, secondColor, SuccessFeedBack
 } from 'styles';
-import { Token, User } from 'types';
+import { User } from 'types';
 import GoogleLoginButton from './GoogleLoginButton';
 
 Modal.setAppElement('#___gatsby');
@@ -76,7 +76,7 @@ export default function AuthModal(
   const loginUser = async (userInfo: FormData): Promise<void> => {
 
     // Send logIn request
-    const { status, data } = await sendRequest<{token: Token, user: User}>({
+    const { status, data } = await sendRequest<{user: User}>({
       url: '/login', method: 'POST', body: userInfo
     });
 

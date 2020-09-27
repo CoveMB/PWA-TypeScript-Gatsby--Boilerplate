@@ -14,8 +14,9 @@ import { isBrowser } from 'utils';
 // Initial auth context
 const initialState = {
   user: {
-    uuid : '',
-    admin: false,
+    uuid          : '',
+    email         : '',
+    profilePicture: ''
   },
   isAuthenticated: false
 };
@@ -101,7 +102,7 @@ export default function AuthContextTypeProvider(
 
       await axiosInstance.internalInstance({
         url    : '/logout',
-        method : 'DELETE',
+        method : 'POST',
         headers: {
           'csrf-token': await getCSRF(),
         },
@@ -115,7 +116,7 @@ export default function AuthContextTypeProvider(
       // The auth token in the cookie will be revoked
       await axiosInstance.internalInstance({
         url    : '/logout',
-        method : 'DELETE',
+        method : 'POST',
         headers: {
           'csrf-token': await getCSRF(),
         },

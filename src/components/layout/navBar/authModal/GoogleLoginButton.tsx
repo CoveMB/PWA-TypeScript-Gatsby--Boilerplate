@@ -33,7 +33,7 @@ export default function GoogleLoginButton(
     } = response.profileObj;
 
     // Send register request
-    const { status, data } = await sendRequest<{token: Token, user: User}>({
+    const { status, data } = await sendRequest<{user: User}>({
       url   : '/register-third-party',
       method: 'POST',
       body  : {

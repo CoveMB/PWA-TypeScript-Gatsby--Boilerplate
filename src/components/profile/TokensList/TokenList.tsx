@@ -66,7 +66,7 @@ export default function TokenList(): ReactElement {
         </TokenDiv>
       ))}
       <RevokeAllButton onClick={() => sendRequest({
-        url   : 'logout-all',
+        url   : '/logout-all',
         method: 'DELETE'
       })}
       >

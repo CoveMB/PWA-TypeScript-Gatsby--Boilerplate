@@ -65,7 +65,7 @@ export default function SetPassword(
       // Send a request to change the password with the new password
       const { data, status } = await sendRequest<{user: User, token: AuthToken}>({
         url   : '/set-password',
-        method: 'PUT',
+        method: 'PATCH',
         body  : {
           password, token
         },

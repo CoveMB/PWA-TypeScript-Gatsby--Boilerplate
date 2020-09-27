@@ -8,13 +8,14 @@ import { User, AuthToken } from 'types';
 export type AuthContextState = {
   user: {
     uuid: string,
-    admin: boolean,
+    email: string,
+    profilePicture: string
   },
   isAuthenticated: boolean
 };
 
 // Functions
-type Login = ({ user, token }: {user: User, token: AuthToken}) => void;
+type Login = ({ user }: {user: User}) => void;
 
 export type SetToken = ({ user, token }: {user: User, token: AuthToken}) => void;
 
