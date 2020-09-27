@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router';
 /* eslint-disable @typescript-eslint/naming-convention */
 import Loading from 'components/shared/Loading';
 import { AccessToken, emailRegEx } from 'config/constants';
@@ -84,6 +85,7 @@ export default function AuthModal(
     if (status === 200) {
 
       logIn(data);
+      navigate('/app/profile');
 
     }
 

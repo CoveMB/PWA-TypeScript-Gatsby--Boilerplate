@@ -2,7 +2,7 @@ import SEO from 'components/layout/Seo';
 import useHttp from 'hooks/http';
 import React, { ReactElement, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import { userDataState, userState } from 'store/atoms';
+import { userDataState, userState } from 'store';
 import { PageTitle } from 'styles';
 import { UserData } from 'types';
 import TokenList from './TokensList/TokenList';

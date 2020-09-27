@@ -5,7 +5,7 @@ import React, { ReactElement, useContext } from 'react';
 import styled from 'styled-components';
 import { button, successColor } from 'styles';
 import { useRecoilState } from 'recoil';
-import { userDataState } from 'store/atoms';
+import { userDataState } from 'store';
 
 const RevokeButton = styled.div`
 ${button}

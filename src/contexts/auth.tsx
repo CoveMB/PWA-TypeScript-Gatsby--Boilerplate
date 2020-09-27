@@ -10,7 +10,7 @@ import {
 } from 'types';
 import { isBrowser } from 'utils';
 import { useRecoilState } from 'recoil';
-import { userState } from 'store/atoms';
+import { userState } from 'store';
 
 // Initial auth context
 const initialState = {

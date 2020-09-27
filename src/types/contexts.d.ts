@@ -2,8 +2,6 @@ import { User, AuthToken } from 'types';
 
 // AuthContext ///
 
-// import { User, AuthToken } from 'types';
-
 // State
 export type AuthContextState = {
   user: {

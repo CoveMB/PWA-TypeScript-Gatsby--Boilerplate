@@ -19,16 +19,3 @@ export type UserData = {
   tokens: Token[],
   email: string,
 };
-
-// State & Actions types //
-// State
-export type State = {
-  user: User
-  userData: UserData
-};
-
-// Actions
-export type ModelsActions = {
-  user: 'SET_USER'
-  userData: 'UPDATE_USER_DATA'
-};
