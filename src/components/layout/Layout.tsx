@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { bodyFont, mainColor, scrollbar } from 'styles';
 import { SiteData } from 'types';
+import Toasts from './Toasts';
 import NavBar from './navBar/NavBar';
 import PageHeader from './PageHeader';
 
@@ -63,6 +64,7 @@ export default function Layout(
       <Container>
         <PageHeader text={header} />
         {children}
+        <Toasts />
       </Container>
     </>
   );

@@ -10,6 +10,7 @@ module.exports = {
   ],
   "plugins": [
     "@typescript-eslint",
+    "react-hooks",
     "react"
   ],
   "settings": {
@@ -94,6 +95,9 @@ module.exports = {
     "@typescript-eslint/comma-spacing": [
       "error"
     ],
+    // Hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     // length
     "max-len": [
       "warn",
@@ -235,17 +239,17 @@ module.exports = {
         },
         "ObjectExpression": {
           "multiline": true,
-          "minProperties": 2,
+          "minProperties": 3,
           "consistent": true
         },
         "ImportDeclaration": {
           "multiline": true,
-          "minProperties": 4,
+          "minProperties": 6,
           "consistent": true
         },
         "ExportDeclaration": {
           "multiline": true,
-          "minProperties": 4,
+          "minProperties": 6,
           "consistent": true
         }
       }
@@ -259,14 +263,14 @@ module.exports = {
       "warn",
       {
         "multiline": true,
-        "minItems": 3
+        "minItems": 4
       }
     ],
     "array-element-newline": [
       "warn",
       {
         "multiline": true,
-        "minItems": 3
+        "minItems": 4
       }
     ],
     // Function rules
