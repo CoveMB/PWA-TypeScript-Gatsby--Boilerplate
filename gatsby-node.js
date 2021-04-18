@@ -1,9 +1,4 @@
-/* eslint-disable import/unambiguous */
-
-"use strict";
-
 // This part of the code runs on node so we disable appropriate rules (eslint is set up as browser)
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require("path");
 
 // Webpack config

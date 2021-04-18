@@ -37,10 +37,8 @@
   },
   "exclude": [
     "node_modules",
-    "./node_modules",
     "public",
-    "./public",
     ".cache",
-    "./.cache"
+    // "gatsby-*",
   ]
 }

@@ -1,8 +1,8 @@
+import AuthContextProvider from "contexts/auth";
 import PropTypes from "prop-types";
 import React from "react";
 import { RecoilRoot } from "recoil";
 
-import AuthContextProvider from "contexts/auth";
 
 // Wrap the app in the AuthContext
 export const wrapRootElement = ({ element }) => (

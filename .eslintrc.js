@@ -1,4 +1,5 @@
 module.exports = {
+  "ignorePatterns": ["**/gatsby-*.js", "**/.eslintrc.js"],
   "parserOptions": {
     "ecmaVersion": 10,
     "parser": "@typescript-eslint/parser",

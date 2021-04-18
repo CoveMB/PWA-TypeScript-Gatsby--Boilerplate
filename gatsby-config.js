@@ -1,6 +1,3 @@
-'use strict';
-/* eslint-disable import/unambiguous */
-
 module.exports = {
   siteMetadata: {
     title: "PWA starter",
@@ -70,4 +67,3 @@ module.exports = {
     },
   ],
 };
-
