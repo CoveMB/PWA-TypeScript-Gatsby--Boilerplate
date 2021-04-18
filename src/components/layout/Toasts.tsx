@@ -1,8 +1,7 @@
-import React, { ReactElement } from 'react';
-import { ToastContainer } from 'react-toastify';
+import React, { ReactElement } from "react";
+import { ToastContainer } from "react-toastify";
 
 export default function Toasts(): ReactElement {
-
   return (
     <>
       <ToastContainer
@@ -17,5 +16,4 @@ export default function Toasts(): ReactElement {
       />
     </>
   );
-
 }

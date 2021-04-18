@@ -1,9 +1,12 @@
-import { atom } from 'recoil';
-import { UserData } from 'types';
+import { atom } from "recoil";
+
+import { UserData } from "types";
 
 export const userDataState = atom<UserData>({
-  key    : 'userDataState',
+  key: "userDataState",
+
   default: {
-    tokens: [], email: ''
+    tokens: [],
+    email: "",
   },
 });

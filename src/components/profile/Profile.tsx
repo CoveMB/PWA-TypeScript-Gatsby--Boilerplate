@@ -1,26 +1,24 @@
-import SEO from 'components/layout/Seo';
-import useHttp from 'hooks/http';
-import React, { ReactElement, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { userDataState, userState } from 'store';
-import { PageTitle } from 'styles';
-import { UserData } from 'types';
-import TokenList from './TokensList/TokenList';
+import React, { ReactElement, useEffect } from "react";
+import { useRecoilState } from "recoil";
+
+import SEO from "components/layout/Seo";
+import useHttp from "hooks/http";
+import { userDataState, userState } from "store";
+import { PageTitle } from "styles";
+import { UserData } from "types";
+
+import TokenList from "./TokensList/TokenList";
 
 export default function Profile(): ReactElement {
-
-  const [ userData, setUserData ] = useRecoilState(userDataState);
-  const [ user ] = useRecoilState(userState);
+  const [userData, setUserData] = useRecoilState(userDataState);
+  const [user] = useRecoilState(userState);
   const { sendRequest } = useHttp();
 
   useEffect(() => {
-
     (async () => {
-
-      if (user) {
-
+      if (user?.uuid) {
         // Query the user
-        const query = /* GraphQL */`
+        const query = /* GraphQL */ `
         query {
           user(uuid: "${user.uuid}"){
             email
@@ -31,33 +29,31 @@ export default function Profile(): ReactElement {
           }
         }`;
 
-        const { data: { data: { user: { tokens, email } } } } = await sendRequest<
-        {data: {user: UserData}}
-        >({
-          url: '/graphql', method: 'POST', body: { query }
+        const {
+          data: {
+            data: {
+              user: { tokens, email },
+            },
+          },
+        } = await sendRequest<{ data: { user: UserData } }>({
+          url: "/graphql",
+          method: "POST",
+          body: { query },
         });
 
         setUserData({
-          tokens, email
+          tokens,
+          email,
         });
-
       }
-
     })();
-
-  }, [ user, sendRequest ]);
+  }, [user, sendRequest, setUserData]);
 
   return (
     <>
       <SEO title="Profile" />
-      <PageTitle>
-        Welcome
-        {' '}
-        {userData?.email}
-      </PageTitle>
+      <PageTitle>Welcome {userData?.email}</PageTitle>
       <TokenList />
     </>
-
   );
-
 }

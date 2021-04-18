@@ -1,7 +1,8 @@
-import { atom } from 'recoil';
-import { User } from 'types';
+import { atom } from "recoil";
+
+import { User } from "types";
 
 export const userState = atom<User | undefined>({
-  key    : 'userState',
+  key: "userState",
   default: undefined,
 });

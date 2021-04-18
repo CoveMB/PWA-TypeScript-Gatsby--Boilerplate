@@ -26,6 +26,10 @@
         "./src/service-worker/*"
       ],
     },
+    "types": [
+      "node",
+      "styled-components"
+    ],
     "typeRoots": [
       "./src/types",
       "node_modules/@types"

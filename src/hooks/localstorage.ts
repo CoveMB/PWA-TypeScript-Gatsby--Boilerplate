@@ -1,56 +1,43 @@
-import {
-  Dispatch, useCallback, useEffect, useState
-} from 'react';
+import { Dispatch, useCallback, useEffect, useState } from "react";
 
-export default function useLocalStorage(
-  key: string,
-): [string, Dispatch<unknown>] {
-
-  const [ value, setValue ] = useState(
-    () => JSON.parse(window.localStorage.getItem(key) || '""')
+export default function useLocalStorage<M>(key: string): [M, Dispatch<M>] {
+  const [value, setValue] = useState<M>(() =>
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    JSON.parse(window.localStorage.getItem(key) || '""')
   );
 
   const setItem = useCallback(
-    (valueToSet: string): void => {
-
+    (valueToSet: M): void => {
       window.localStorage.setItem(key, JSON.stringify(valueToSet));
-
-    }, [ key ]
+    },
+    [key]
   );
 
   const handleStorageEvent = useCallback(
     (event: StorageEvent) => {
-
-      if (event.key === key && JSON.stringify(event.newValue) !== JSON.stringify(value)) {
-
-        setValue(event.newValue);
-
+      if (
+        event.key === key &&
+        JSON.stringify(event.newValue) !== JSON.stringify(value)
+      ) {
+        setValue((event.newValue as unknown) as M);
       }
-
     },
-    [ value, key ]
+    [value, key]
   );
 
   useEffect(() => {
-
     const oldValue = window.localStorage.getItem(key);
 
     if (JSON.stringify(value) !== JSON.stringify(oldValue)) {
-
       setItem(value);
-
     }
-
-  }, [ value, key, setItem ]);
+  }, [value, key, setItem]);
 
   useEffect(() => {
+    window.addEventListener("storage", handleStorageEvent);
 
-    window.addEventListener('storage', handleStorageEvent);
+    return () => window.removeEventListener("storage", handleStorageEvent);
+  }, [handleStorageEvent]);
 
-    return () => window.removeEventListener('storage', handleStorageEvent);
-
-  }, [ handleStorageEvent ]);
-
-  return [ value, setValue ];
-
+  return [value, setValue];
 }

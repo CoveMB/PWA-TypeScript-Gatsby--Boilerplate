@@ -5,8 +5,12 @@ module.exports = {
     "project": "./tsconfig.json"
   },
   "extends": [
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "airbnb-typescript",
+    "hardcore/ts-for-js",
+    "hardcore",
   ],
   "plugins": [
     "@typescript-eslint",
@@ -44,6 +48,7 @@ module.exports = {
     }
   },
   "rules": {
+    // Import
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -54,9 +59,23 @@ module.exports = {
         "tsx": "never"
       }
     ],
-    "no-cycle": "off",
-    "react/prop-types": "off",
+    "import/exports-last": "off",
+    "import/group-exports": "off",
+    "import/no-namespace": "off",
+    "import/max-dependencies": "off",
+    "import/no-cycle": "off",
+    "import/no-unused-modules": "off",
+    "import/prefer-default-export": "off",
     // Typescript
+    "@typescript-eslint/naming-convention": ["error", {
+      "selector": ["variable"],
+      "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+      "leadingUnderscore": "allow"
+    }],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
@@ -64,223 +83,25 @@ module.exports = {
         "varsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/lines-between-class-members": [
-      "warn",
-      {
-        "exceptAfterOverload": true
-      }
-    ],
-    "@typescript-eslint/type-annotation-spacing": [
-      "warn",
-      {
-        "before": false,
-        "after": true,
-        "overrides": {
-          "arrow": {
-            "before": true,
-            "after": true
-          },
-          "colon": {
-            "before": false,
-            "after": true
-          }
-        }
-      }
-    ],
-    "indent": "off",
-    "@typescript-eslint/indent": [
-      "error"
-    ],
-    "comma-spacing": "off",
-    "@typescript-eslint/comma-spacing": [
-      "error"
-    ],
-    // Hooks
+    // React
+    "react/prop-types": "off",
+    "react/jsx-props-no-spreading": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    // length
-    "max-len": [
-      "warn",
-      {
-        "code": 100,
-        "ignoreStrings": true,
-        "ignoreUrls": true,
-        "ignoreComments": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
-      }
-    ],
-    "import/prefer-default-export": "off",
-    "no-console": "off",
-    "no-unused-vars": "off",
-    "quotes": [
-      "warn",
-      "single"
-    ],
-    // Spacing
-    "react/jsx-max-props-per-line": 1,
-    "react/jsx-closing-bracket-location": [
-      1,
-      "tag-aligned"
-    ],
-    "space-in-parens": "warn",
-    "keyword-spacing": "warn",
-    "no-trailing-spaces": "warn",
-    "space-before-blocks": "warn",
-    "space-before-function-paren": [
-      "warn",
-      {
-        "anonymous": "always",
-        "named": "never",
-        "asyncArrow": "always"
-      }
-    ],
-    "key-spacing": [
-      "warn",
-      {
-        "align": {},
-        "multiLine": {}
-      }
-    ],
-    "no-multi-spaces": [
-      "warn",
-      {
-        "exceptions": {
-          "VariableDeclarator": true,
-          "Property": true
-        },
-        "ignoreEOLComments": true
-      }
-    ],
-    // Padding
-    "lines-around-comment": [
-      "warn",
-      {
-        "beforeBlockComment": true,
-        "beforeLineComment": true
-      }
-    ],
-    "eol-last": "warn",
-    "no-empty": "warn",
-    "no-multiple-empty-lines": "warn",
-    "newline-per-chained-call": [
-      "warn",
-      {
-        "ignoreChainWithDepth": 2
-      }
-    ],
-    "padded-blocks": [
-      "warn",
-      "always"
-    ],
-    "padding-line-between-statements": [
-      "warn",
-      {
-        "blankLine": "always",
-        "prev": "*",
-        "next": [
-          "cjs-export",
-          "return",
-          "if"
-        ]
-      },
-      {
-        "blankLine": "always",
-        "prev": [
-          "const",
-          "let",
-          "var",
-          "import"
-        ],
-        "next": "*"
-      },
-      {
-        "blankLine": "any",
-        "prev": [
-          "const",
-          "let",
-          "var",
-          "import"
-        ],
-        "next": [
-          "const",
-          "let",
-          "var",
-          "import"
-        ]
-      }
-    ],
-    // Semi and coma rules
-    "comma-dangle": "off",
-    "no-extra-semi": "warn",
-    "semi-style": [
-      "error",
-      "last"
-    ],
-    "semi": [
-      "warn",
-      "always",
-      {
-        "omitLastInOneLineBlock": false
-      }
-    ],
-    // Object rules
-    "object-curly-spacing": [
-      "warn",
-      "always"
-    ],
-    "object-curly-newline": [
-      "warn",
-      {
-        "ObjectPattern": {
-          "multiline": true,
-          "minProperties": 4,
-          "consistent": true
-        },
-        "ObjectExpression": {
-          "multiline": true,
-          "minProperties": 3,
-          "consistent": true
-        },
-        "ImportDeclaration": {
-          "multiline": true,
-          "minProperties": 6,
-          "consistent": true
-        },
-        "ExportDeclaration": {
-          "multiline": true,
-          "minProperties": 6,
-          "consistent": true
-        }
-      }
-    ],
-    // Array rules
-    "array-bracket-spacing": [
-      "warn",
-      "always"
-    ],
-    "array-bracket-newline": [
-      "warn",
-      {
-        "multiline": true,
-        "minItems": 4
-      }
-    ],
-    "array-element-newline": [
-      "warn",
-      {
-        "multiline": true,
-        "minItems": 4
-      }
-    ],
-    // Function rules
-    "arrow-parens": [
-      "warn",
-      "always"
-    ]
+    // Others
+    "no-inline-comments": ["error", { "ignorePattern": "GraphQL" }],
+    "max-len": ["error", { "ignoreComments": true }],
+    "max-statements": "off",
+    "lines-around-comment": "off",
+    "sonarjs/cognitive-complexity": "off",
+    "no-shadow": "off",
+    "no-use-before-define": "off",
+    "indent": "off",
+    "func-style": "off",
+    "no-return-await": "off",
   },
   "env": {
-    "node": false,
+    "node": true,
     "browser": true,
     "jest": true
   },

@@ -1,9 +1,9 @@
-import Layout from 'components/layout/Layout';
-import SEO from 'components/layout/Seo';
-import React, { ReactElement } from 'react';
+import React, { ReactElement } from "react";
+
+import Layout from "components/layout/Layout";
+import SEO from "components/layout/Seo";
 
 export default function NotFoundPage(): ReactElement {
-
   return (
     <Layout>
       <SEO title="404: Not found" />
@@ -11,5 +11,4 @@ export default function NotFoundPage(): ReactElement {
       <p>Dang you just hit a route that doesn&#39;t exist... </p>
     </Layout>
   );
-
 }

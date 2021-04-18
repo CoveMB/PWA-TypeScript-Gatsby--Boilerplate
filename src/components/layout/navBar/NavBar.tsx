@@ -1,13 +1,13 @@
-import LoggedIn from 'components/layout/navBar/NavLoggedIn';
-import LoggedOut from 'components/layout/navBar/NavLoggedOut';
-import { AuthContext } from 'contexts/auth';
-import { graphql, Link, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
-import PropTypes, { InferProps } from 'prop-types';
-import React, { ReactElement, useContext } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { bodyFont, mainColor } from 'styles';
-import { ImageQuerySharp } from 'types';
+import { Link } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
+import PropTypes, { InferProps } from "prop-types";
+import React, { ReactElement, useContext } from "react";
+import styled, { keyframes } from "styled-components";
+
+import { AuthContext } from "contexts/auth";
+import LoggedOut from "components/layout/navBar/NavLoggedOut";
+import LoggedIn from "components/layout/navBar/NavLoggedIn";
+import { bodyFont, mainColor } from "styles";
 
 const Header = styled.header`
   height: 50px;
@@ -22,7 +22,6 @@ const Div = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 1.45rem 1.0875rem,
 `;
 
 const Title = styled.h1`
@@ -30,6 +29,7 @@ const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
   margin: 0;
+  padding: 0;
 `;
 
 const spin = keyframes`
@@ -37,26 +37,15 @@ const spin = keyframes`
 }`;
 
 const Icon = styled.div`
-  width:26px;
+  width: 26px;
   margin: 0 10px 5px 0;
   animation: ${spin} 26s linear infinite;
 `;
 
-export default function NavBar({ siteTitle = '' }: InferProps<typeof NavBar.propTypes>): ReactElement {
-
+export default function NavBar({
+  siteTitle = "",
+}: InferProps<typeof NavBar.propTypes>): ReactElement {
   const { isAuthenticated } = useContext(AuthContext);
-
-  const data = useStaticQuery<ImageQuerySharp>(graphql`
-  query {
-    placeholderImage: file(relativePath: { eq: "gatsby-icon.png" }) {
-      childImageSharp {
-        fluid(maxWidth: 40) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-  }
-`);
 
   return (
     <Header>
@@ -64,24 +53,18 @@ export default function NavBar({ siteTitle = '' }: InferProps<typeof NavBar.prop
         <Link to="/">
           <Div>
             <Icon>
-              <Img fluid={data.placeholderImage.childImageSharp.fluid} alt="Icon image" />
+              <StaticImage
+                src="../../../images/gatsby-icon.png"
+                alt="Icon image"
+              />
             </Icon>
-            <Title>
-              {siteTitle}
-            </Title>
+            <Title>{siteTitle}</Title>
           </Div>
-
         </Link>
-        {
-          isAuthenticated
-            ? <LoggedIn />
-            : <LoggedOut />
-        }
-
+        {isAuthenticated ? <LoggedIn /> : <LoggedOut />}
       </Div>
     </Header>
   );
-
 }
 
 NavBar.propTypes = {
@@ -89,5 +72,5 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  siteTitle: '',
+  siteTitle: "",
 };

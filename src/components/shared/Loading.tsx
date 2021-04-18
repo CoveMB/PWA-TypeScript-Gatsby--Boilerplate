@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import styled, { css, keyframes } from 'styled-components';
-import { mainColor } from 'styles';
+import React, { FC } from "react";
+import styled, { css, keyframes } from "styled-components";
+
+import { mainColor } from "styles";
 
 const cubeGridScaleDelay = keyframes`
   0%, 70%, 100% {
@@ -83,7 +84,6 @@ const Loading: FC = () => (
     <CubeHeight />
     <CubeNine />
   </CubeGrid>
-
 );
 
 export default Loading;

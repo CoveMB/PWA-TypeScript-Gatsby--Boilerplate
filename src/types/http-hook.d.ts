@@ -1,45 +1,43 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
-export type AxiosInstanceTypes = 'internalInstance' | 'externalInstance';
+export type AxiosInstanceTypes = "internalInstance" | "externalInstance";
 
 // Http Hook Reducer
 export type HttpState = {
-  loading: boolean,
-  error?: string,
-  data?: any
+  loading: boolean;
+  error?: string;
+  data?: any;
 };
 
-export type HttpActionType = 'CLEAR' | 'ERROR' | 'RESPONSE'| 'SEND';
+export type HttpActionType = "CLEAR" | "ERROR" | "RESPONSE" | "SEND";
 
 export type HttpAction = {
-  type: HttpActionType,
-  errorMessage?: string,
-  responseData?: unknown
+  type: HttpActionType;
+  errorMessage?: string;
+  responseData?: unknown;
 };
 
 // Http options
-export type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+export type HttpMethods = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 
 type HttpHeaders = {
-  'Content-Type'?: 'application/json',
-  Authorization?: string
+  "Content-Type"?: "application/json";
+  Authorization?: string;
 };
 
 export type HttpRequestParams = {
-  url: string,
-  method: HttpMethods,
-  body?: unknown,
-  headers?: HttpHeaders
+  url: string;
+  method: HttpMethods;
+  body?: unknown;
+  headers?: HttpHeaders;
 };
 
 // Http Hook Functions
 export type ClearHttpState = () => void;
 
 export type ExecuteRequest = <M>(
-  {
-    url, method, body, headers
-  }: HttpRequestParams,
-  axiosInstance: AxiosInstanceTypes,
+  { url, method, body, headers }: HttpRequestParams,
+  axiosInstance: AxiosInstanceTypes
 ) => Promise<AxiosResponse<M>>;
 
 export type SendRequest = <M>(
@@ -51,9 +49,9 @@ export type SendRequest = <M>(
 export type UseHttp = <M>(
   initialRequest?: HttpRequestParams
 ) => {
-  isLoading: boolean,
-  httpData: M,
-  httpError?: string,
-  sendRequest: SendRequest,
-  clearHttpState: ClearHttpState
+  isLoading: boolean;
+  httpData: M;
+  httpError?: string;
+  sendRequest: SendRequest;
+  clearHttpState: ClearHttpState;
 };

@@ -1,26 +1,31 @@
-import React, { ReactElement, useState } from 'react';
-import { FlexDiv, NavLink } from 'styles';
-import AuthModal from './authModal/AuthModal';
+import React, { ReactElement, useState } from "react";
+
+import { FlexDiv, NavLink } from "styles";
+
+import AuthModal from "./authModal/AuthModal";
 
 // The navbar shown if you are logged out
 export default function LoggedOut(): ReactElement {
-
   const actions = {
-    LOGIN         : 'login',
-    SIGNUP        : 'signup',
-    PASSWORD_RESET: 'passwordReset'
+    LOGIN: "login",
+    SIGNUP: "signup",
+    PASSWORD_RESET: "passwordReset",
   };
 
-  const [ userAuthAction, setUserAuthAction ] = useState({
-    authModalOpen: false, authAction: actions.LOGIN
+  const [userAuthAction, setUserAuthAction] = useState({
+    authModalOpen: false,
+    authAction: actions.LOGIN,
   });
 
   return (
     <FlexDiv>
-
-      <NavLink onClick={() => setUserAuthAction({
-        authAction: actions.SIGNUP, authModalOpen: true
-      })}
+      <NavLink
+        onClick={() =>
+          setUserAuthAction({
+            authAction: actions.SIGNUP,
+            authModalOpen: true,
+          })
+        }
       >
         Register
       </NavLink>
@@ -30,13 +35,15 @@ export default function LoggedOut(): ReactElement {
         actions={actions}
       />
       <NavLink
-        onClick={() => setUserAuthAction({
-          authAction: actions.LOGIN, authModalOpen: true
-        })}
+        onClick={() =>
+          setUserAuthAction({
+            authAction: actions.LOGIN,
+            authModalOpen: true,
+          })
+        }
       >
         Login
       </NavLink>
     </FlexDiv>
   );
-
 }

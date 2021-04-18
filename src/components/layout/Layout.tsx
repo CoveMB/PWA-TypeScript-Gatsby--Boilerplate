@@ -1,12 +1,14 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import PropTypes, { InferProps } from 'prop-types';
-import React, { ReactElement } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
-import { bodyFont, mainColor, scrollbar } from 'styles';
-import { SiteData } from 'types';
-import Toasts from './Toasts';
-import NavBar from './navBar/NavBar';
-import PageHeader from './PageHeader';
+import { graphql, useStaticQuery } from "gatsby";
+import PropTypes, { InferProps } from "prop-types";
+import React, { ReactElement } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+
+import { bodyFont, mainColor, scrollbar } from "styles";
+import { SiteData } from "types";
+
+import NavBar from "./navBar/NavBar";
+import PageHeader from "./PageHeader";
+import Toasts from "./Toasts";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -43,10 +45,10 @@ const Container = styled.div`
   font-family: ${bodyFont};
 `;
 
-export default function Layout(
-  { children, header }: InferProps<typeof Layout.propTypes>
-): ReactElement {
-
+export default function Layout({
+  children,
+  header,
+}: InferProps<typeof Layout.propTypes>): ReactElement {
   const data = useStaticQuery<SiteData>(graphql`
     query SiteTitleQuery {
       site {
@@ -68,14 +70,13 @@ export default function Layout(
       </Container>
     </>
   );
-
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  header  : PropTypes.string
+  header: PropTypes.string,
 };
 
 Layout.defaultProps = {
-  header: ''
+  header: "",
 };
