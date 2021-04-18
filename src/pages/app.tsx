@@ -1,8 +1,8 @@
 import { Router } from "@reach/router";
 import React, { ReactElement } from "react";
 
-import Layout from "components/layout/Layout";
-import PrivateRoute from "components/privateRoute/PrivateRoute";
+import Layout from "components/shared/layout/Layout";
+import PrivateRoute from "components/shared/privateRoute/PrivateRoute";
 import Profile from "components/profile/Profile";
 
 // Define the routes of the app, those routes will be the ones protected under authentication

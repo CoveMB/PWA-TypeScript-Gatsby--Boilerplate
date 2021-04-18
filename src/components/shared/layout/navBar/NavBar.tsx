@@ -5,8 +5,8 @@ import React, { ReactElement, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { AuthContext } from "contexts/auth";
-import LoggedOut from "components/layout/navBar/NavLoggedOut";
-import LoggedIn from "components/layout/navBar/NavLoggedIn";
+import LoggedOut from "components/shared/layout/navBar/NavLoggedOut";
+import LoggedIn from "components/shared/layout/navBar/NavLoggedIn";
 import { bodyFont, mainColor } from "styles";
 
 const Header = styled.header`

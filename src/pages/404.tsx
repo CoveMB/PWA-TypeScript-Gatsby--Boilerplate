@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
-import Layout from "components/layout/Layout";
-import SEO from "components/layout/Seo";
+import Layout from "components/shared/layout/Layout";
+import SEO from "components/shared/layout/Seo";
 
 export default function NotFoundPage(): ReactElement {
   return (

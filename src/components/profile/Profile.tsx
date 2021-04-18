@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import SEO from "components/layout/Seo";
+import SEO from "components/shared/layout/Seo";
 import useHttp from "hooks/http";
 import { userDataState, userState } from "store";
 import { PageTitle } from "styles";
