@@ -1,13 +1,13 @@
 import React, { ReactElement, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import SEO from "components/shared/layout/Seo";
 import useHttp from "hooks/http";
 import { userDataState, userState } from "store";
 import { PageTitle } from "styles";
 import { UserData } from "types";
+import SEO from "components/shared/Layout/Seo";
 
-import TokenList from "./TokensList/TokenList";
+import TokenList from "./TokensList";
 
 export default function Profile(): ReactElement {
   const [userData, setUserData] = useRecoilState(userDataState);

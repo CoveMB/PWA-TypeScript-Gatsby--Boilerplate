@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 
-import Layout from "components/shared/layout/Layout";
-import SEO from "components/shared/layout/Seo";
+import Layout from "components/shared/Layout";
+import SEO from "components/shared/Layout/Seo";
 import { PageTitle } from "styles";
 
 // The login page is the one that unauthenticated user are redirected to

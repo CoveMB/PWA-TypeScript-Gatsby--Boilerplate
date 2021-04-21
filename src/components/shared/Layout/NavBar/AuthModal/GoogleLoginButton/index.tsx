@@ -6,7 +6,6 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import styled from "styled-components";
 
 import useHttp from "hooks/http";
 import { AuthContext } from "contexts/auth";
@@ -14,11 +13,7 @@ import { GoogleClientId, HttpStatus } from "config/constants";
 import { ErrorFeedBack } from "styles";
 import { User } from "types";
 
-const ThirdPartyLogin = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: space-around;
-`;
+import { ThirdPartyLogin } from "./style";
 
 export default function GoogleLoginButton({
   redirect,

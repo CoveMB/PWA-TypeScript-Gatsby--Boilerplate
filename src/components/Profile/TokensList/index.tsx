@@ -1,37 +1,12 @@
 import React, { ReactElement, useContext } from "react";
-import styled from "styled-components";
 import { useRecoilState } from "recoil";
 
 import Card from "components/shared/Card";
 import { AuthContext } from "contexts/auth";
 import useHttp from "hooks/http";
-import { button, successColor } from "styles";
 import { userDataState } from "store";
 
-const RevokeButton = styled.button`
-  ${button}
-`;
-
-const RevokeAllButton = styled.div`
-  ${button}
-  margin: 20px auto 15px auto
-`;
-
-const TokenTitle = styled.p<{ readonly active?: boolean }>`
-  font-size: 1.4em;
-  text-align: center;
-  ${({ active }) =>
-    active &&
-    `
-    color: ${successColor};
-  `}
-`;
-
-const TokenDiv = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`;
+import { TokenDiv, TokenTitle, RevokeButton, RevokeAllButton } from "./style";
 
 export default function TokenList(): ReactElement {
   const [userData, setUserData] = useRecoilState(userDataState);

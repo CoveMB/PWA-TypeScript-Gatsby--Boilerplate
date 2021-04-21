@@ -1,24 +1,7 @@
 import PropTypes, { InferProps } from "prop-types";
 import React, { ReactElement } from "react";
-import styled from "styled-components";
 
-import { headerFont, mainColor } from "styles";
-
-const Header = styled.p`
-  margin-top: 15px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: ${mainColor};
-  font-family: ${headerFont};
-`;
-
-const Div = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin: auto;
-`;
+import { Div, Header } from "./style";
 
 export default function PageHeader({
   text = "",

@@ -4,10 +4,10 @@ import React, { ReactElement, useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
-import Layout from "components/shared/layout/Layout";
+import Layout from "components/shared/Layout";
 // eslint-disable-next-line max-len
-import GoogleLoginButton from "components/shared/layout/navBar/authModal/GoogleLoginButton";
-import SEO from "components/shared/layout/Seo";
+import GoogleLoginButton from "components/shared/Layout/NavBar/AuthModal/GoogleLoginButton";
+import SEO from "components/shared/Layout/Seo";
 import Loading from "components/shared/Loading";
 import { AuthContext } from "contexts/auth";
 import useHttp from "hooks/http";

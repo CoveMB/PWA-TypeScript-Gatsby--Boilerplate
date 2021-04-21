@@ -1,9 +1,8 @@
 import { navigate } from "@reach/router";
 import PropTypes, { InferProps } from "prop-types";
 import React, { ReactElement, useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 import useHttp from "hooks/http";
 import { AuthContext } from "contexts/auth";
@@ -15,44 +14,19 @@ import {
   FormTitle,
   InputButton,
   Label,
-  secondColor,
   SuccessFeedBack,
 } from "styles";
 import { User } from "types";
 
 import GoogleLoginButton from "./GoogleLoginButton";
+import {
+  customStyles,
+  TitleDiv,
+  TextSeparator,
+  PasswordResetRequest,
+} from "./style";
 
 Modal.setAppElement("#___gatsby");
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    boxShadow: "0px 3px 6px #222",
-    transform: "translate(-50%, -50%)",
-    width: "30%",
-    padding: "0",
-  },
-};
-
-const TitleDiv = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-
-const PasswordResetRequest = styled.p`
-  color: ${secondColor};
-  cursor: pointer;
-`;
-
-const TextSeparator = styled.div`
-  margin-top: 35px;
-  display: flex;
-  justify-content: space-around;
-`;
 
 type FormData = {
   email: string;
